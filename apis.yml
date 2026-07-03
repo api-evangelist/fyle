@@ -1,0 +1,242 @@
+aid: fyle
+url: https://raw.githubusercontent.com/api-evangelist/fyle/refs/heads/main/apis.yml
+name: Fyle
+kind: company
+description: Fyle (now Sage Expense Management) is a spend and expense management
+  platform known for real-time corporate card feeds that text employees for a
+  receipt the moment a card is swiped, then auto-code the expense. The Fyle
+  Platform APIs expose the same objects the product runs on - expenses, expense
+  reports, advances, categories, projects, cost centers, employees, merchants,
+  corporate cards and their transactions, files/receipts, and webhook
+  subscriptions - as role-scoped REST resources (admin, spender, approver,
+  common) under https://api.fylehq.com/platform/v1. Access is authenticated with
+  OAuth 2.0 (refresh-token grant issuing short-lived Bearer access tokens), and
+  list endpoints use PostgREST-style filtering with mandatory offset, limit, and
+  order pagination.
+image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/apis-json-logo.jpg
+tags:
+- Expense Management
+- Spend Management
+- Corporate Cards
+- Fintech
+- Accounting
+- Receipts
+created: '2026-07-03'
+modified: '2026-07-03'
+specificationVersion: '0.19'
+apis:
+- aid: fyle:fyle-expenses-api
+  name: Fyle Expenses API
+  tags:
+  - Expenses
+  - Receipts
+  - Spend
+  image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/apis-json-logo.jpg
+  humanURL: https://docs.fylehq.com/docs/fyle-platform-docs/1381169eb4baa-list-expenses
+  baseURL: https://api.fylehq.com/platform/v1/admin
+  properties:
+  - url: https://docs.fylehq.com/docs/fyle-platform-docs/d72728ede9b0e-admin-ap-is
+    type: Documentation
+  - url: https://docs.fylehq.com/docs/fyle-platform-docs/1381169eb4baa-list-expenses
+    type: APIReference
+  - url: openapi/fyle-openapi.yml
+    type: OpenAPI
+  description: List, filter, retrieve, and upsert expenses across the organization.
+    Admins read every employee's expenses (with rich filtering and pagination);
+    spenders create their own expenses, create an expense from a receipt, and
+    attach receipts. Base path uses the role segment - /admin/expenses or
+    /spender/expenses.
+- aid: fyle:fyle-reports-api
+  name: Fyle Reports API
+  tags:
+  - Reports
+  - Approvals
+  - Reimbursement
+  image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/apis-json-logo.jpg
+  humanURL: https://docs.fylehq.com/docs/fyle-platform-docs/d72728ede9b0e-admin-ap-is
+  baseURL: https://api.fylehq.com/platform/v1/admin
+  properties:
+  - url: https://docs.fylehq.com/docs/fyle-platform-docs/d72728ede9b0e-admin-ap-is
+    type: Documentation
+  - url: https://docs.fylehq.com/docs/fyle-platform-docs/8f79171ef2cb5-spender-ap-is
+    type: APIReference
+  - url: openapi/fyle-openapi.yml
+    type: OpenAPI
+  description: Manage expense reports - the containers employees submit for approval
+    and reimbursement. Spenders create reports, add expenses to a report, and
+    submit them; admins bulk mark reports as paid once reimbursed.
+- aid: fyle:fyle-advances-api
+  name: Fyle Advances API
+  tags:
+  - Advances
+  - Advance Requests
+  - Reimbursement
+  image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/apis-json-logo.jpg
+  humanURL: https://docs.fylehq.com/docs/fyle-platform-docs/d72728ede9b0e-admin-ap-is
+  baseURL: https://api.fylehq.com/platform/v1/admin
+  properties:
+  - url: https://docs.fylehq.com/docs/fyle-platform-docs/d72728ede9b0e-admin-ap-is
+    type: Documentation
+  - url: openapi/fyle-openapi.yml
+    type: OpenAPI
+  description: List, retrieve, and upsert advance requests - the money employees ask
+    for ahead of spending. Exposed under /admin/advance_requests for
+    programmatic reconciliation with payroll and accounting systems.
+- aid: fyle:fyle-categories-api
+  name: Fyle Categories API
+  tags:
+  - Categories
+  - Chart of Accounts
+  - Coding
+  image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/apis-json-logo.jpg
+  humanURL: https://docs.fylehq.com/docs/fyle-platform-docs/d72728ede9b0e-admin-ap-is
+  baseURL: https://api.fylehq.com/platform/v1/admin
+  properties:
+  - url: https://docs.fylehq.com/docs/fyle-platform-docs/d72728ede9b0e-admin-ap-is
+    type: Documentation
+  - url: openapi/fyle-openapi.yml
+    type: OpenAPI
+  description: List, upsert, and bulk-upsert expense categories, typically synced
+    from an accounting system's chart of accounts so expenses code correctly.
+    Available at /admin/categories with a bulk endpoint for large imports.
+- aid: fyle:fyle-projects-api
+  name: Fyle Projects API
+  tags:
+  - Projects
+  - Cost Allocation
+  - Coding
+  image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/apis-json-logo.jpg
+  humanURL: https://docs.fylehq.com/docs/fyle-platform-docs/d72728ede9b0e-admin-ap-is
+  baseURL: https://api.fylehq.com/platform/v1/admin
+  properties:
+  - url: https://docs.fylehq.com/docs/fyle-platform-docs/d72728ede9b0e-admin-ap-is
+    type: Documentation
+  - url: openapi/fyle-openapi.yml
+    type: OpenAPI
+  description: List, upsert, and bulk-upsert projects used to tag and allocate
+    expenses to client work or internal initiatives. Served at /admin/projects
+    with a bulk endpoint for syncing from external systems.
+- aid: fyle:fyle-cost-centers-api
+  name: Fyle Cost Centers API
+  tags:
+  - Cost Centers
+  - Cost Allocation
+  - Coding
+  image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/apis-json-logo.jpg
+  humanURL: https://docs.fylehq.com/docs/fyle-platform-docs/d72728ede9b0e-admin-ap-is
+  baseURL: https://api.fylehq.com/platform/v1/admin
+  properties:
+  - url: https://docs.fylehq.com/docs/fyle-platform-docs/d72728ede9b0e-admin-ap-is
+    type: Documentation
+  - url: openapi/fyle-openapi.yml
+    type: OpenAPI
+  description: List, upsert, and bulk-upsert cost centers that map spend to
+    departments, teams, or business units for reporting and accounting export.
+    Available at /admin/cost_centers.
+- aid: fyle:fyle-employees-api
+  name: Fyle Employees API
+  tags:
+  - Employees
+  - HRMS
+  - Users
+  image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/apis-json-logo.jpg
+  humanURL: https://docs.fylehq.com/docs/fyle-platform-docs/d72728ede9b0e-admin-ap-is
+  baseURL: https://api.fylehq.com/platform/v1/admin
+  properties:
+  - url: https://docs.fylehq.com/docs/fyle-platform-docs/d72728ede9b0e-admin-ap-is
+    type: Documentation
+  - url: openapi/fyle-openapi.yml
+    type: OpenAPI
+  description: List, retrieve, upsert, and bulk-invite employees - typically synced
+    from an HRMS so approval hierarchies, departments, and reimbursement details
+    stay current. Available at /admin/employees.
+- aid: fyle:fyle-merchants-api
+  name: Fyle Merchants API
+  tags:
+  - Merchants
+  - Vendors
+  - Spend
+  image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/apis-json-logo.jpg
+  humanURL: https://docs.fylehq.com/docs/fyle-platform-docs/8f79171ef2cb5-spender-ap-is
+  baseURL: https://api.fylehq.com/platform/v1/spender
+  properties:
+  - url: https://docs.fylehq.com/docs/fyle-platform-docs/8f79171ef2cb5-spender-ap-is
+    type: Documentation
+  - url: openapi/fyle-openapi.yml
+    type: OpenAPI
+  description: List the merchant/vendor values available to a spender and bulk-add
+    new merchants, keeping the merchant field consistent across expenses.
+    Served at /spender/merchants.
+- aid: fyle:fyle-corporate-cards-api
+  name: Fyle Corporate Cards & Transactions API
+  tags:
+  - Corporate Cards
+  - Card Transactions
+  - Real-Time Feeds
+  image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/apis-json-logo.jpg
+  humanURL: https://docs.fylehq.com/docs/fyle-platform-docs/d72728ede9b0e-admin-ap-is
+  baseURL: https://api.fylehq.com/platform/v1/admin
+  properties:
+  - url: https://docs.fylehq.com/docs/fyle-platform-docs/d72728ede9b0e-admin-ap-is
+    type: Documentation
+  - url: openapi/fyle-openapi.yml
+    type: OpenAPI
+  description: List enrolled corporate cards and read the real-time card
+    transactions that flow in from Fyle's direct card feeds, then match them to
+    expenses. Exposed at /admin/corporate_cards and
+    /admin/corporate_card_transactions (cards are also listable under /spender).
+- aid: fyle:fyle-webhooks-api
+  name: Fyle Webhooks API
+  tags:
+  - Webhooks
+  - Subscriptions
+  - Callbacks
+  image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/apis-json-logo.jpg
+  humanURL: https://docs.fylehq.com/docs/fyle-platform-docs/d72728ede9b0e-admin-ap-is
+  baseURL: https://api.fylehq.com/platform/v1/admin
+  properties:
+  - url: https://docs.fylehq.com/docs/fyle-platform-docs/d72728ede9b0e-admin-ap-is
+    type: Documentation
+  - url: openapi/fyle-openapi.yml
+    type: OpenAPI
+  description: Register and manage webhook subscriptions and scheduled callbacks so
+    your application receives HTTP POSTs when expenses, reports, and other
+    objects change - Fyle's outbound integration mechanism (server-to-endpoint
+    HTTP, not WebSocket). Managed at /admin/subscriptions and
+    /admin/scheduled_callbacks.
+- aid: fyle:fyle-files-api
+  name: Fyle Files & Receipts API
+  tags:
+  - Files
+  - Receipts
+  - Attachments
+  image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/apis-json-logo.jpg
+  humanURL: https://docs.fylehq.com/docs/fyle-platform-docs/d72728ede9b0e-admin-ap-is
+  baseURL: https://api.fylehq.com/platform/v1/admin
+  properties:
+  - url: https://docs.fylehq.com/docs/fyle-platform-docs/d72728ede9b0e-admin-ap-is
+    type: Documentation
+  - url: openapi/fyle-openapi.yml
+    type: OpenAPI
+  description: Create file records and generate pre-signed upload/download URLs for
+    receipts and other attachments, then bulk-generate URLs for many files at
+    once. Available at /admin/files (and /spender/files) with a
+    /files/generate_urls/bulk helper.
+common:
+- type: GitHubOrganization
+  url: https://github.com/fylein
+- type: LinkedIn
+  url: https://www.linkedin.com/company/fyle
+- type: Website
+  url: https://www.fylehq.com
+- type: Documentation
+  url: https://docs.fylehq.com
+- type: Plans
+  url: plans/fyle-plans-pricing.yml
+- type: RateLimits
+  url: rate-limits/fyle-rate-limits.yml
+- type: FinOps
+  url: finops/fyle-finops.yml
+maintainers:
+- FN: Kin Lane
+  email: kin@apievangelist.com

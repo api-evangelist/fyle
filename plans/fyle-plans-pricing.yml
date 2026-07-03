@@ -1,0 +1,115 @@
+specification: API Commons Plans
+specificationVersion: '0.1'
+schema: https://raw.githubusercontent.com/api-evangelist/interface-research/main/schema/api-commons.yml#/$defs/Plans
+provider: Fyle
+providerId: fyle
+created: '2026-07-03'
+modified: '2026-07-03'
+reconciled: false
+tags:
+- Expense Management
+- Spend Management
+- Corporate Cards
+- SaaS
+- Plans
+description: >-
+  Fyle (now Sage Expense Management) is priced per active user per month, billed
+  annually. An "active user" is anyone who creates at least one expense, or who
+  has a corporate card connected to Fyle with at least one transaction, in a
+  given month - so an organization can onboard everyone and only pay for those
+  who actually generate activity. Published tiers are Growth and Business, with a
+  custom Enterprise tier for larger organizations. The Fyle Platform API is
+  included with a subscription rather than metered separately; API access itself
+  is not a line item. Exact prices change over time and should be reconciled
+  against the live pricing page.
+notes: >-
+  Prices below reflect Fyle's public pricing page at the review date and are
+  per active user per month billed annually. Some third-party aggregators list
+  different or older figures. The API is included in the subscription and is not
+  billed per call. Verify current tiers, minimums, and the active-user
+  definition at https://www.fylehq.com/pricing during reconciliation.
+sources:
+- https://www.fylehq.com/pricing
+- https://docs.fylehq.com
+- https://www.fylehq.com/help/en/articles/3045578-integrating-with-fyle
+plans:
+- id: fyle-growth
+  name: Growth
+  type: paid
+  description: >-
+    Entry tier for smaller teams. Real-time card feeds, receipt capture,
+    single-stage approvals, basic email/knowledge-base support, and two-way
+    integrations with QuickBooks Online, Xero, and Sage 50. Minimum 5 users.
+    Includes full Platform API access.
+  entries:
+  - label: Per Active User
+    name: growth_active_user
+    type: usage
+    metric: users
+    limit: -1
+    timeFrame: month
+    geo: global
+    unit: 1
+    price: $11.99 per active user/month (billed annually, 5-user minimum)
+    userMultiplied: true
+  elements:
+  - name: Real-Time Card Feeds
+  - name: Receipt Capture and Extraction
+  - name: Single-Stage Approvals
+  - name: QuickBooks Online / Xero / Sage 50 Integration
+  - name: Platform API Access
+- id: fyle-business
+  name: Business
+  type: paid
+  description: >-
+    Mid-market tier. Adds multi-stage, policy-driven approvals, ACH
+    reimbursements (US), project expense tracking, NetSuite and Sage Intacct
+    integrations, custom data exports, and premium support with live chat and an
+    account manager. Minimum 10 users. Includes full Platform API access.
+  entries:
+  - label: Per Active User
+    name: business_active_user
+    type: usage
+    metric: users
+    limit: -1
+    timeFrame: month
+    geo: global
+    unit: 1
+    price: $14.99 per active user/month (billed annually, 10-user minimum)
+    userMultiplied: true
+  elements:
+  - name: Multi-Stage Policy-Driven Approvals
+  - name: ACH Reimbursements (US)
+  - name: Project Expense Tracking
+  - name: NetSuite and Sage Intacct Integration
+  - name: Custom Data Exports
+  - name: Premium Support
+  - name: Platform API Access
+- id: fyle-enterprise
+  name: Enterprise
+  type: enterprise
+  description: >-
+    Custom tier for larger organizations (roughly 250+ employees). All Business
+    features plus SSO with AD/Okta, IP whitelisting, a dedicated account
+    manager, Customer Advisory Group access, and half-yearly business reviews.
+    Negotiated pricing.
+  entries:
+  - label: Enterprise Agreement
+    name: enterprise
+    type: flat
+    metric: contract
+    limit: -1
+    timeFrame: year
+    geo: global
+    unit: 1
+    price: custom (contact sales)
+    userMultiplied: false
+  elements:
+  - name: SSO (AD/Okta) and IP Whitelisting
+  - name: Dedicated Account Manager
+  - name: Customer Advisory Group Access
+  - name: Half-Yearly Business Reviews
+  - name: Platform API Access
+maintainers:
+- FN: Kin Lane
+  email: kin@apievangelist.com

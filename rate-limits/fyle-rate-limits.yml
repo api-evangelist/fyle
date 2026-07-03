@@ -1,0 +1,64 @@
+specification: API Commons Rate Limits
+specificationVersion: '0.1'
+schema: https://raw.githubusercontent.com/api-evangelist/interface-research/main/schema/api-commons.yml#/$defs/RateLimits
+provider: Fyle
+providerId: fyle
+created: '2026-07-03'
+modified: '2026-07-03'
+reconciled: false
+tags:
+- Expense Management
+- Spend Management
+- API
+- Rate Limiting
+- Pagination
+description: >-
+  Fyle does not publish fixed numeric per-account or per-endpoint rate limits
+  for the Platform API in its public documentation. Throughput is governed
+  primarily by pagination: every list endpoint requires offset, limit, and order
+  query parameters, and the limit (page size) is capped by the server, so large
+  reads are paged rather than pulled in a single request. Access tokens issued by
+  the OAuth refresh-token grant are short-lived and must be refreshed, which
+  naturally bounds sustained request rates. Clients that exceed platform limits
+  should expect HTTP 429 responses and back off.
+notes: >-
+  No numeric requests-per-second/minute limit is documented publicly as of the
+  review date. Treat the per-page limit as the main throughput control, keep page
+  sizes reasonable, prefer incremental syncs via updated_at filters over full
+  re-reads, and implement exponential backoff on 429/5xx. Confirm any
+  account-specific limits with Fyle support (support@fylehq.com) for high-volume
+  integrations.
+sources:
+- https://docs.fylehq.com
+- https://docs.fylehq.com/docs/fyle-platform-docs/ZG9jOjI3Mzk2NTM3-guide-to-data-ap-is
+- https://github.com/fylein/fyle-platform-sdk-py
+responseCodes:
+  throttled: 429
+  unauthorized: 401
+  expiredToken: 498
+limits:
+- name: Platform API Requests
+  scope: account
+  metric: requests
+  limit: not published
+  notes: No fixed numeric request-rate limit is documented publicly for the Platform API.
+- name: List Page Size
+  scope: request
+  metric: records
+  limit: server-capped via the mandatory limit query param
+  notes: List endpoints require offset, limit, and order; results are paged and the limit is bounded by the server.
+- name: Access Token Lifetime
+  scope: account
+  metric: tokens
+  limit: short-lived (refresh via OAuth refresh-token grant)
+  notes: Bearer access tokens expire and must be refreshed; expired tokens return 498.
+policies:
+- name: Pagination
+  description: Iterate large datasets with offset/limit/order rather than requesting everything at once.
+- name: Incremental Sync
+  description: Use PostgREST-style filters such as updated_at=gte.<timestamp> to pull only changed records and reduce request volume.
+- name: Backoff Strategy
+  description: On 429 or 5xx responses, retry with exponential backoff and jitter; the official SDK retries token and server errors automatically.
+maintainers:
+- FN: Kin Lane
+  email: kin@apievangelist.com

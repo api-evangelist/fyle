@@ -1,0 +1,1201 @@
+openapi: 3.0.3
+info:
+  title: Fyle Platform API
+  description: >-
+    The Fyle Platform API (Fyle is now Sage Expense Management) exposes the
+    objects behind Fyle's spend and expense management product - expenses,
+    expense reports, advances, categories, projects, cost centers, employees,
+    merchants, corporate cards and their real-time transactions, files/receipts,
+    and webhook subscriptions - as role-scoped REST resources. Every path is
+    served under a role segment (admin, spender, approver, or common); this
+    document models the admin, spender, and common surfaces most commonly used
+    for accounting/HRMS integration.
+
+
+    Authentication is OAuth 2.0 using the refresh-token grant: exchange a
+    long-lived refresh token (with client_id and client_secret) at the token
+    endpoint for a short-lived Bearer access token, then send it as
+    `Authorization: Bearer <access_token>`.
+
+
+    List endpoints follow a PostgREST-style convention: `offset`, `limit`, and
+    `order` query parameters are mandatory, and any response field can be
+    filtered with operators like `id=eq.<uuid>` or `updated_at=gte.<timestamp>`.
+    A single resource is fetched by filtering on its id.
+
+
+    Endpoint paths and HTTP verbs in this document are grounded in Fyle's
+    open-source Python Platform SDK (github.com/fylein/fyle-platform-sdk-py).
+    Request and response object field shapes are modeled representatively -
+    consult the live Stoplight reference at docs.fylehq.com for exhaustive
+    schemas.
+  version: '1.0'
+  contact:
+    name: Fyle (Sage Expense Management)
+    url: https://www.fylehq.com
+  license:
+    name: Proprietary
+    url: https://www.fylehq.com/legal
+servers:
+  - url: https://api.fylehq.com/platform/v1
+    description: Fyle Platform API (production cluster). The role segment (admin, spender, approver, common) is the first path element.
+security:
+  - bearerAuth: []
+tags:
+  - name: Expenses
+    description: Expenses across the organization (admin) or for the signed-in spender.
+  - name: Reports
+    description: Expense reports submitted for approval and reimbursement.
+  - name: Advances
+    description: Advance requests raised by employees.
+  - name: Categories
+    description: Expense categories, usually synced from a chart of accounts.
+  - name: Projects
+    description: Projects used to tag and allocate spend.
+  - name: Cost Centers
+    description: Cost centers mapping spend to departments or business units.
+  - name: Employees
+    description: Employee/user records, usually synced from an HRMS.
+  - name: Merchants
+    description: Merchant/vendor values available to spenders.
+  - name: Corporate Cards
+    description: Enrolled corporate cards and their real-time transactions.
+  - name: Webhooks
+    description: Webhook subscriptions and scheduled callbacks.
+  - name: Files
+    description: File records and pre-signed URLs for receipts and attachments.
+paths:
+  /admin/expenses:
+    get:
+      operationId: listAdminExpenses
+      tags:
+        - Expenses
+      summary: List expenses (admin)
+      description: >-
+        Lists expenses submitted by any employee in the current organization.
+        Supports rich PostgREST-style filtering on any response field and
+        mandatory offset/limit/order pagination.
+      parameters:
+        - $ref: '#/components/parameters/Offset'
+        - $ref: '#/components/parameters/Limit'
+        - $ref: '#/components/parameters/Order'
+        - name: id
+          in: query
+          description: Filter by expense id, e.g. `eq.txXXXX` or `in.(txA,txB)`.
+          schema:
+            type: string
+        - name: updated_at
+          in: query
+          description: Filter by last-updated timestamp, e.g. `gte.2026-01-01T00:00:00.000Z`.
+          schema:
+            type: string
+      responses:
+        '200':
+          description: A page of expenses.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ExpenseListResponse'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+    post:
+      operationId: upsertAdminExpense
+      tags:
+        - Expenses
+      summary: Create or update an expense (admin)
+      description: Creates a new expense or updates an existing one (upsert) in the organization.
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ExpenseUpsertRequest'
+      responses:
+        '200':
+          description: The created or updated expense.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ExpenseResponse'
+        '400':
+          $ref: '#/components/responses/BadRequest'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+  /admin/expenses/accounting_export_summary/bulk:
+    post:
+      operationId: bulkUpsertAccountingExportSummary
+      tags:
+        - Expenses
+      summary: Bulk update accounting export summary
+      description: Bulk-updates the accounting export summary on many expenses (used to sync export status back from an accounting system).
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/BulkDataRequest'
+      responses:
+        '200':
+          description: Bulk update result.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ExpenseListResponse'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+  /spender/expenses:
+    get:
+      operationId: listSpenderExpenses
+      tags:
+        - Expenses
+      summary: List my expenses (spender)
+      description: Lists the signed-in spender's own expenses with filtering and pagination.
+      parameters:
+        - $ref: '#/components/parameters/Offset'
+        - $ref: '#/components/parameters/Limit'
+        - $ref: '#/components/parameters/Order'
+      responses:
+        '200':
+          description: A page of the spender's expenses.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ExpenseListResponse'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+    post:
+      operationId: createSpenderExpense
+      tags:
+        - Expenses
+      summary: Create an expense (spender)
+      description: Creates an expense for the signed-in spender.
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ExpenseUpsertRequest'
+      responses:
+        '200':
+          description: The created expense.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ExpenseResponse'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+  /spender/expenses/attach_receipt:
+    post:
+      operationId: attachReceipt
+      tags:
+        - Expenses
+      summary: Attach a receipt to an expense
+      description: Attaches an already-uploaded file (receipt) to an existing expense.
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/DataObjectRequest'
+      responses:
+        '200':
+          description: The updated expense.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ExpenseResponse'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+  /spender/expenses/create_from_receipt:
+    post:
+      operationId: createExpenseFromReceipt
+      tags:
+        - Expenses
+      summary: Create an expense from a receipt
+      description: Creates a draft expense from an uploaded receipt file, letting Fyle extract merchant, amount, and date.
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/DataObjectRequest'
+      responses:
+        '200':
+          description: The created expense.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ExpenseResponse'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+  /admin/reports:
+    get:
+      operationId: listAdminReports
+      tags:
+        - Reports
+      summary: List reports (admin)
+      description: Lists expense reports in the organization with filtering and pagination.
+      parameters:
+        - $ref: '#/components/parameters/Offset'
+        - $ref: '#/components/parameters/Limit'
+        - $ref: '#/components/parameters/Order'
+      responses:
+        '200':
+          description: A page of reports.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ReportListResponse'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+    post:
+      operationId: upsertAdminReport
+      tags:
+        - Reports
+      summary: Create or update a report (admin)
+      description: Creates or updates an expense report.
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/DataObjectRequest'
+      responses:
+        '200':
+          description: The created or updated report.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ReportResponse'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+  /admin/reports/mark_paid/bulk:
+    post:
+      operationId: bulkMarkReportsPaid
+      tags:
+        - Reports
+      summary: Bulk mark reports as paid
+      description: Marks multiple reports as paid once they have been reimbursed outside Fyle.
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/BulkDataRequest'
+      responses:
+        '200':
+          description: Bulk result.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ReportListResponse'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+  /spender/reports:
+    get:
+      operationId: listSpenderReports
+      tags:
+        - Reports
+      summary: List my reports (spender)
+      description: Lists the signed-in spender's own reports.
+      parameters:
+        - $ref: '#/components/parameters/Offset'
+        - $ref: '#/components/parameters/Limit'
+        - $ref: '#/components/parameters/Order'
+      responses:
+        '200':
+          description: A page of the spender's reports.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ReportListResponse'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+    post:
+      operationId: createSpenderReport
+      tags:
+        - Reports
+      summary: Create a report (spender)
+      description: Creates a report for the signed-in spender.
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/DataObjectRequest'
+      responses:
+        '200':
+          description: The created report.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ReportResponse'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+  /spender/reports/add_expenses:
+    post:
+      operationId: addExpensesToReport
+      tags:
+        - Reports
+      summary: Add expenses to a report
+      description: Adds one or more expenses to an existing report.
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/DataObjectRequest'
+      responses:
+        '200':
+          description: The updated report.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ReportResponse'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+  /spender/reports/submit:
+    post:
+      operationId: submitReport
+      tags:
+        - Reports
+      summary: Submit a report
+      description: Submits a report for approval.
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/DataObjectRequest'
+      responses:
+        '200':
+          description: The submitted report.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ReportResponse'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+  /admin/advance_requests:
+    get:
+      operationId: listAdvanceRequests
+      tags:
+        - Advances
+      summary: List advance requests (admin)
+      description: Lists advance requests raised by employees, with filtering and pagination.
+      parameters:
+        - $ref: '#/components/parameters/Offset'
+        - $ref: '#/components/parameters/Limit'
+        - $ref: '#/components/parameters/Order'
+      responses:
+        '200':
+          description: A page of advance requests.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/GenericListResponse'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+    post:
+      operationId: upsertAdvanceRequest
+      tags:
+        - Advances
+      summary: Create or update an advance request (admin)
+      description: Creates or updates an advance request.
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/DataObjectRequest'
+      responses:
+        '200':
+          description: The created or updated advance request.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/GenericObjectResponse'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+  /admin/categories:
+    get:
+      operationId: listCategories
+      tags:
+        - Categories
+      summary: List categories (admin)
+      description: Lists expense categories with filtering and pagination.
+      parameters:
+        - $ref: '#/components/parameters/Offset'
+        - $ref: '#/components/parameters/Limit'
+        - $ref: '#/components/parameters/Order'
+      responses:
+        '200':
+          description: A page of categories.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/GenericListResponse'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+    post:
+      operationId: upsertCategory
+      tags:
+        - Categories
+      summary: Create or update a category (admin)
+      description: Creates or updates a single expense category.
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/DataObjectRequest'
+      responses:
+        '200':
+          description: The created or updated category.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/GenericObjectResponse'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+  /admin/categories/bulk:
+    post:
+      operationId: bulkUpsertCategories
+      tags:
+        - Categories
+      summary: Bulk create or update categories (admin)
+      description: Creates or updates many categories in one request (used to sync a chart of accounts).
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/BulkDataRequest'
+      responses:
+        '200':
+          description: The bulk result.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/GenericListResponse'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+  /admin/projects:
+    get:
+      operationId: listProjects
+      tags:
+        - Projects
+      summary: List projects (admin)
+      description: Lists projects with filtering and pagination.
+      parameters:
+        - $ref: '#/components/parameters/Offset'
+        - $ref: '#/components/parameters/Limit'
+        - $ref: '#/components/parameters/Order'
+      responses:
+        '200':
+          description: A page of projects.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/GenericListResponse'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+    post:
+      operationId: upsertProject
+      tags:
+        - Projects
+      summary: Create or update a project (admin)
+      description: Creates or updates a single project.
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/DataObjectRequest'
+      responses:
+        '200':
+          description: The created or updated project.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/GenericObjectResponse'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+  /admin/projects/bulk:
+    post:
+      operationId: bulkUpsertProjects
+      tags:
+        - Projects
+      summary: Bulk create or update projects (admin)
+      description: Creates or updates many projects in one request.
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/BulkDataRequest'
+      responses:
+        '200':
+          description: The bulk result.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/GenericListResponse'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+  /admin/cost_centers:
+    get:
+      operationId: listCostCenters
+      tags:
+        - Cost Centers
+      summary: List cost centers (admin)
+      description: Lists cost centers with filtering and pagination.
+      parameters:
+        - $ref: '#/components/parameters/Offset'
+        - $ref: '#/components/parameters/Limit'
+        - $ref: '#/components/parameters/Order'
+      responses:
+        '200':
+          description: A page of cost centers.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/GenericListResponse'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+    post:
+      operationId: upsertCostCenter
+      tags:
+        - Cost Centers
+      summary: Create or update a cost center (admin)
+      description: Creates or updates a single cost center.
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/DataObjectRequest'
+      responses:
+        '200':
+          description: The created or updated cost center.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/GenericObjectResponse'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+  /admin/cost_centers/bulk:
+    post:
+      operationId: bulkUpsertCostCenters
+      tags:
+        - Cost Centers
+      summary: Bulk create or update cost centers (admin)
+      description: Creates or updates many cost centers in one request.
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/BulkDataRequest'
+      responses:
+        '200':
+          description: The bulk result.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/GenericListResponse'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+  /admin/employees:
+    get:
+      operationId: listEmployees
+      tags:
+        - Employees
+      summary: List employees (admin)
+      description: Lists employees with filtering and pagination.
+      parameters:
+        - $ref: '#/components/parameters/Offset'
+        - $ref: '#/components/parameters/Limit'
+        - $ref: '#/components/parameters/Order'
+      responses:
+        '200':
+          description: A page of employees.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/GenericListResponse'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+    post:
+      operationId: upsertEmployee
+      tags:
+        - Employees
+      summary: Create or update an employee (admin)
+      description: Creates or updates a single employee record.
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/DataObjectRequest'
+      responses:
+        '200':
+          description: The created or updated employee.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/GenericObjectResponse'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+  /admin/employees/invite/bulk:
+    post:
+      operationId: bulkInviteEmployees
+      tags:
+        - Employees
+      summary: Bulk invite employees (admin)
+      description: Invites many employees to the organization in one request.
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/BulkDataRequest'
+      responses:
+        '200':
+          description: The bulk invite result.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/GenericListResponse'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+  /spender/merchants:
+    get:
+      operationId: listMerchants
+      tags:
+        - Merchants
+      summary: List merchants (spender)
+      description: Lists merchant/vendor values available to the signed-in spender.
+      parameters:
+        - $ref: '#/components/parameters/Offset'
+        - $ref: '#/components/parameters/Limit'
+        - $ref: '#/components/parameters/Order'
+      responses:
+        '200':
+          description: A page of merchants.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/GenericListResponse'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+    post:
+      operationId: bulkUpsertMerchants
+      tags:
+        - Merchants
+      summary: Bulk add merchants (spender)
+      description: Adds new merchant values in bulk.
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/BulkDataRequest'
+      responses:
+        '200':
+          description: The bulk result.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/GenericListResponse'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+  /admin/corporate_cards:
+    get:
+      operationId: listCorporateCards
+      tags:
+        - Corporate Cards
+      summary: List corporate cards (admin)
+      description: Lists corporate cards enrolled in the organization.
+      parameters:
+        - $ref: '#/components/parameters/Offset'
+        - $ref: '#/components/parameters/Limit'
+        - $ref: '#/components/parameters/Order'
+      responses:
+        '200':
+          description: A page of corporate cards.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/GenericListResponse'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+  /admin/corporate_card_transactions:
+    get:
+      operationId: listCorporateCardTransactions
+      tags:
+        - Corporate Cards
+      summary: List corporate card transactions (admin)
+      description: >-
+        Lists corporate card transactions received via Fyle's real-time card
+        feeds. Supports filtering (for example by card, date, or matched state)
+        and pagination.
+      parameters:
+        - $ref: '#/components/parameters/Offset'
+        - $ref: '#/components/parameters/Limit'
+        - $ref: '#/components/parameters/Order'
+      responses:
+        '200':
+          description: A page of corporate card transactions.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/GenericListResponse'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+    post:
+      operationId: upsertCorporateCardTransaction
+      tags:
+        - Corporate Cards
+      summary: Create or update a corporate card transaction (admin)
+      description: Creates or updates a corporate card transaction (for example to import feed data).
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/DataObjectRequest'
+      responses:
+        '200':
+          description: The created or updated transaction.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/GenericObjectResponse'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+  /admin/subscriptions:
+    get:
+      operationId: listSubscriptions
+      tags:
+        - Webhooks
+      summary: List webhook subscriptions (admin)
+      description: Lists webhook subscriptions - the callback registrations Fyle POSTs to when objects change.
+      parameters:
+        - $ref: '#/components/parameters/Offset'
+        - $ref: '#/components/parameters/Limit'
+        - $ref: '#/components/parameters/Order'
+      responses:
+        '200':
+          description: A page of subscriptions.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/GenericListResponse'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+    post:
+      operationId: upsertSubscription
+      tags:
+        - Webhooks
+      summary: Create or update a webhook subscription (admin)
+      description: Registers or updates a webhook subscription with a callback URL and the events to notify on.
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/SubscriptionRequest'
+      responses:
+        '200':
+          description: The created or updated subscription.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/GenericObjectResponse'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+  /admin/scheduled_callbacks:
+    get:
+      operationId: listScheduledCallbacks
+      tags:
+        - Webhooks
+      summary: List scheduled callbacks (admin)
+      description: Lists scheduled callbacks - time-based HTTP callbacks Fyle will make to your endpoint.
+      parameters:
+        - $ref: '#/components/parameters/Offset'
+        - $ref: '#/components/parameters/Limit'
+        - $ref: '#/components/parameters/Order'
+      responses:
+        '200':
+          description: A page of scheduled callbacks.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/GenericListResponse'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+    post:
+      operationId: upsertScheduledCallback
+      tags:
+        - Webhooks
+      summary: Create or update a scheduled callback (admin)
+      description: Creates or updates a scheduled callback.
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/DataObjectRequest'
+      responses:
+        '200':
+          description: The created or updated scheduled callback.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/GenericObjectResponse'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+  /admin/files:
+    get:
+      operationId: listFiles
+      tags:
+        - Files
+      summary: List files (admin)
+      description: Lists file records (receipts and other attachments) with filtering and pagination.
+      parameters:
+        - $ref: '#/components/parameters/Offset'
+        - $ref: '#/components/parameters/Limit'
+        - $ref: '#/components/parameters/Order'
+      responses:
+        '200':
+          description: A page of files.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/GenericListResponse'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+    post:
+      operationId: createFile
+      tags:
+        - Files
+      summary: Create a file (admin)
+      description: Creates a file record; the response includes an upload URL used to PUT the binary to storage.
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/FileCreateRequest'
+      responses:
+        '200':
+          description: The created file record.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/FileResponse'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+  /admin/files/generate_urls/bulk:
+    post:
+      operationId: bulkGenerateFileUrls
+      tags:
+        - Files
+      summary: Bulk generate file URLs (admin)
+      description: Generates pre-signed upload and/or download URLs for many files in one request.
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/BulkDataRequest'
+      responses:
+        '200':
+          description: The generated URLs.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/GenericListResponse'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+components:
+  securitySchemes:
+    bearerAuth:
+      type: http
+      scheme: bearer
+      bearerFormat: JWT
+      description: >-
+        OAuth 2.0 Bearer access token. Obtain it via the refresh-token grant at
+        the Fyle OAuth token endpoint (accounts host) using your client_id,
+        client_secret, and refresh_token, then send it as
+        `Authorization: Bearer <access_token>`.
+  parameters:
+    Offset:
+      name: offset
+      in: query
+      required: true
+      description: Number of records to skip for pagination (mandatory).
+      schema:
+        type: integer
+        minimum: 0
+        default: 0
+    Limit:
+      name: limit
+      in: query
+      required: true
+      description: Maximum number of records to return per page (mandatory).
+      schema:
+        type: integer
+        minimum: 1
+        default: 100
+    Order:
+      name: order
+      in: query
+      required: true
+      description: Sort order, e.g. `created_at.desc` or `updated_at.asc` (mandatory).
+      schema:
+        type: string
+        example: created_at.desc
+  responses:
+    Unauthorized:
+      description: Missing, invalid, or expired access token.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+    BadRequest:
+      description: One or more parameters are invalid.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+  schemas:
+    Error:
+      type: object
+      properties:
+        message:
+          type: string
+        error:
+          type: string
+    PageMeta:
+      type: object
+      description: Pagination envelope Fyle returns alongside list data.
+      properties:
+        count:
+          type: integer
+          description: Number of records returned in this page.
+        offset:
+          type: integer
+        limit:
+          type: integer
+    DataObjectRequest:
+      type: object
+      description: Generic upsert envelope; Fyle wraps the resource under a `data` object.
+      required:
+        - data
+      properties:
+        data:
+          type: object
+          additionalProperties: true
+    BulkDataRequest:
+      type: object
+      description: Generic bulk envelope; Fyle wraps a list of resources under `data`.
+      required:
+        - data
+      properties:
+        data:
+          type: array
+          items:
+            type: object
+            additionalProperties: true
+    GenericObjectResponse:
+      type: object
+      properties:
+        data:
+          type: object
+          additionalProperties: true
+    GenericListResponse:
+      type: object
+      properties:
+        count:
+          type: integer
+        offset:
+          type: integer
+        data:
+          type: array
+          items:
+            type: object
+            additionalProperties: true
+    Expense:
+      type: object
+      properties:
+        id:
+          type: string
+          description: Expense id, prefixed `tx`.
+          example: txABC123
+        org_id:
+          type: string
+        employee_id:
+          type: string
+        merchant:
+          type: string
+        purpose:
+          type: string
+        category_id:
+          type: string
+        project_id:
+          type: string
+        cost_center_id:
+          type: string
+        report_id:
+          type: string
+        amount:
+          type: number
+          format: double
+        currency:
+          type: string
+          example: USD
+        foreign_amount:
+          type: number
+          format: double
+        foreign_currency:
+          type: string
+        spent_at:
+          type: string
+          format: date-time
+        is_reimbursable:
+          type: boolean
+        state:
+          type: string
+          description: Expense state, e.g. DRAFT, COMPLETE, APPROVER_PENDING, PAID.
+        source:
+          type: string
+          description: Origin of the expense, e.g. CORPORATE_CARD, MOBILE, WEBAPP.
+        file_ids:
+          type: array
+          items:
+            type: string
+        created_at:
+          type: string
+          format: date-time
+        updated_at:
+          type: string
+          format: date-time
+    ExpenseUpsertRequest:
+      type: object
+      required:
+        - data
+      properties:
+        data:
+          $ref: '#/components/schemas/Expense'
+    ExpenseResponse:
+      type: object
+      properties:
+        data:
+          $ref: '#/components/schemas/Expense'
+    ExpenseListResponse:
+      type: object
+      properties:
+        count:
+          type: integer
+        offset:
+          type: integer
+        data:
+          type: array
+          items:
+            $ref: '#/components/schemas/Expense'
+    Report:
+      type: object
+      properties:
+        id:
+          type: string
+          example: rpABC123
+        org_id:
+          type: string
+        employee_id:
+          type: string
+        purpose:
+          type: string
+        state:
+          type: string
+          description: Report state, e.g. DRAFT, APPROVER_PENDING, APPROVED, PAID.
+        num_expenses:
+          type: integer
+        amount:
+          type: number
+          format: double
+        currency:
+          type: string
+        is_manually_created:
+          type: boolean
+        created_at:
+          type: string
+          format: date-time
+        updated_at:
+          type: string
+          format: date-time
+    ReportResponse:
+      type: object
+      properties:
+        data:
+          $ref: '#/components/schemas/Report'
+    ReportListResponse:
+      type: object
+      properties:
+        count:
+          type: integer
+        offset:
+          type: integer
+        data:
+          type: array
+          items:
+            $ref: '#/components/schemas/Report'
+    SubscriptionRequest:
+      type: object
+      required:
+        - data
+      properties:
+        data:
+          type: object
+          properties:
+            webhook_url:
+              type: string
+              format: uri
+              description: HTTPS URL Fyle POSTs event payloads to.
+            is_enabled:
+              type: boolean
+          additionalProperties: true
+    FileCreateRequest:
+      type: object
+      required:
+        - data
+      properties:
+        data:
+          type: object
+          properties:
+            name:
+              type: string
+            type:
+              type: string
+              description: MIME/content type of the file, e.g. image/png or application/pdf.
+          additionalProperties: true
+    FileResponse:
+      type: object
+      properties:
+        data:
+          type: object
+          properties:
+            id:
+              type: string
+              example: fiABC123
+            name:
+              type: string
+            upload_url:
+              type: string
+              format: uri
+              description: Pre-signed URL to PUT the file's binary content to.
+            download_url:
+              type: string
+              format: uri
+          additionalProperties: true

@@ -1,0 +1,282 @@
+{
+  "info": {
+    "name": "Fyle Platform API",
+    "description": "Role-scoped REST resources of the Fyle Platform API (Fyle is now Sage Expense Management): expenses, reports, advances, categories, projects, cost centers, employees, merchants, corporate cards and transactions, webhook subscriptions, and files/receipts. Base URL: https://api.fylehq.com/platform/v1 with a role segment (admin, spender, approver, common). Auth is OAuth 2.0 Bearer access tokens obtained via the refresh-token grant. List endpoints require offset, limit, and order query params. Endpoint paths are grounded in Fyle's open-source Python Platform SDK.",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+  },
+  "auth": {
+    "type": "bearer",
+    "bearer": [
+      { "key": "token", "value": "{{accessToken}}", "type": "string" }
+    ]
+  },
+  "variable": [
+    { "key": "baseUrl", "value": "https://api.fylehq.com/platform/v1", "type": "string" },
+    { "key": "accessToken", "value": "", "type": "string" }
+  ],
+  "item": [
+    {
+      "name": "Expenses",
+      "item": [
+        {
+          "name": "List expenses (admin)",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": { "raw": "{{baseUrl}}/admin/expenses?offset=0&limit=100&order=created_at.desc", "host": ["{{baseUrl}}"], "path": ["admin", "expenses"], "query": [{ "key": "offset", "value": "0" }, { "key": "limit", "value": "100" }, { "key": "order", "value": "created_at.desc" }] },
+            "description": "Lists expenses submitted by any employee. offset, limit, and order are mandatory."
+          }
+        },
+        {
+          "name": "Create or update an expense (admin)",
+          "request": {
+            "method": "POST",
+            "header": [{ "key": "Content-Type", "value": "application/json" }],
+            "body": { "mode": "raw", "raw": "{\n  \"data\": {\n    \"merchant\": \"Uber\",\n    \"amount\": 24.5,\n    \"currency\": \"USD\"\n  }\n}" },
+            "url": { "raw": "{{baseUrl}}/admin/expenses", "host": ["{{baseUrl}}"], "path": ["admin", "expenses"] },
+            "description": "Creates or updates (upserts) an expense."
+          }
+        },
+        {
+          "name": "List my expenses (spender)",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": { "raw": "{{baseUrl}}/spender/expenses?offset=0&limit=100&order=created_at.desc", "host": ["{{baseUrl}}"], "path": ["spender", "expenses"], "query": [{ "key": "offset", "value": "0" }, { "key": "limit", "value": "100" }, { "key": "order", "value": "created_at.desc" }] },
+            "description": "Lists the signed-in spender's own expenses."
+          }
+        },
+        {
+          "name": "Create expense from receipt (spender)",
+          "request": {
+            "method": "POST",
+            "header": [{ "key": "Content-Type", "value": "application/json" }],
+            "body": { "mode": "raw", "raw": "{\n  \"data\": {\n    \"file_id\": \"fiXXXX\"\n  }\n}" },
+            "url": { "raw": "{{baseUrl}}/spender/expenses/create_from_receipt", "host": ["{{baseUrl}}"], "path": ["spender", "expenses", "create_from_receipt"] },
+            "description": "Creates a draft expense from an uploaded receipt file."
+          }
+        }
+      ]
+    },
+    {
+      "name": "Reports",
+      "item": [
+        {
+          "name": "List reports (admin)",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": { "raw": "{{baseUrl}}/admin/reports?offset=0&limit=100&order=created_at.desc", "host": ["{{baseUrl}}"], "path": ["admin", "reports"], "query": [{ "key": "offset", "value": "0" }, { "key": "limit", "value": "100" }, { "key": "order", "value": "created_at.desc" }] },
+            "description": "Lists expense reports in the organization."
+          }
+        },
+        {
+          "name": "Bulk mark reports as paid (admin)",
+          "request": {
+            "method": "POST",
+            "header": [{ "key": "Content-Type", "value": "application/json" }],
+            "body": { "mode": "raw", "raw": "{\n  \"data\": [\n    { \"id\": \"rpXXXX\" }\n  ]\n}" },
+            "url": { "raw": "{{baseUrl}}/admin/reports/mark_paid/bulk", "host": ["{{baseUrl}}"], "path": ["admin", "reports", "mark_paid", "bulk"] },
+            "description": "Marks multiple reports as paid after reimbursement."
+          }
+        },
+        {
+          "name": "Submit a report (spender)",
+          "request": {
+            "method": "POST",
+            "header": [{ "key": "Content-Type", "value": "application/json" }],
+            "body": { "mode": "raw", "raw": "{\n  \"data\": {\n    \"id\": \"rpXXXX\"\n  }\n}" },
+            "url": { "raw": "{{baseUrl}}/spender/reports/submit", "host": ["{{baseUrl}}"], "path": ["spender", "reports", "submit"] },
+            "description": "Submits a report for approval."
+          }
+        }
+      ]
+    },
+    {
+      "name": "Advances",
+      "item": [
+        {
+          "name": "List advance requests (admin)",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": { "raw": "{{baseUrl}}/admin/advance_requests?offset=0&limit=100&order=created_at.desc", "host": ["{{baseUrl}}"], "path": ["admin", "advance_requests"], "query": [{ "key": "offset", "value": "0" }, { "key": "limit", "value": "100" }, { "key": "order", "value": "created_at.desc" }] },
+            "description": "Lists advance requests raised by employees."
+          }
+        }
+      ]
+    },
+    {
+      "name": "Categories",
+      "item": [
+        {
+          "name": "List categories (admin)",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": { "raw": "{{baseUrl}}/admin/categories?offset=0&limit=100&order=created_at.desc", "host": ["{{baseUrl}}"], "path": ["admin", "categories"], "query": [{ "key": "offset", "value": "0" }, { "key": "limit", "value": "100" }, { "key": "order", "value": "created_at.desc" }] },
+            "description": "Lists expense categories."
+          }
+        },
+        {
+          "name": "Bulk upsert categories (admin)",
+          "request": {
+            "method": "POST",
+            "header": [{ "key": "Content-Type", "value": "application/json" }],
+            "body": { "mode": "raw", "raw": "{\n  \"data\": [\n    { \"name\": \"Travel\" }\n  ]\n}" },
+            "url": { "raw": "{{baseUrl}}/admin/categories/bulk", "host": ["{{baseUrl}}"], "path": ["admin", "categories", "bulk"] },
+            "description": "Creates or updates many categories (sync a chart of accounts)."
+          }
+        }
+      ]
+    },
+    {
+      "name": "Projects",
+      "item": [
+        {
+          "name": "List projects (admin)",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": { "raw": "{{baseUrl}}/admin/projects?offset=0&limit=100&order=created_at.desc", "host": ["{{baseUrl}}"], "path": ["admin", "projects"], "query": [{ "key": "offset", "value": "0" }, { "key": "limit", "value": "100" }, { "key": "order", "value": "created_at.desc" }] },
+            "description": "Lists projects."
+          }
+        },
+        {
+          "name": "Bulk upsert projects (admin)",
+          "request": {
+            "method": "POST",
+            "header": [{ "key": "Content-Type", "value": "application/json" }],
+            "body": { "mode": "raw", "raw": "{\n  \"data\": [\n    { \"name\": \"Client A\" }\n  ]\n}" },
+            "url": { "raw": "{{baseUrl}}/admin/projects/bulk", "host": ["{{baseUrl}}"], "path": ["admin", "projects", "bulk"] },
+            "description": "Creates or updates many projects."
+          }
+        }
+      ]
+    },
+    {
+      "name": "Cost Centers",
+      "item": [
+        {
+          "name": "List cost centers (admin)",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": { "raw": "{{baseUrl}}/admin/cost_centers?offset=0&limit=100&order=created_at.desc", "host": ["{{baseUrl}}"], "path": ["admin", "cost_centers"], "query": [{ "key": "offset", "value": "0" }, { "key": "limit", "value": "100" }, { "key": "order", "value": "created_at.desc" }] },
+            "description": "Lists cost centers."
+          }
+        }
+      ]
+    },
+    {
+      "name": "Employees",
+      "item": [
+        {
+          "name": "List employees (admin)",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": { "raw": "{{baseUrl}}/admin/employees?offset=0&limit=100&order=created_at.desc", "host": ["{{baseUrl}}"], "path": ["admin", "employees"], "query": [{ "key": "offset", "value": "0" }, { "key": "limit", "value": "100" }, { "key": "order", "value": "created_at.desc" }] },
+            "description": "Lists employees."
+          }
+        },
+        {
+          "name": "Bulk invite employees (admin)",
+          "request": {
+            "method": "POST",
+            "header": [{ "key": "Content-Type", "value": "application/json" }],
+            "body": { "mode": "raw", "raw": "{\n  \"data\": [\n    { \"email\": \"user@example.com\" }\n  ]\n}" },
+            "url": { "raw": "{{baseUrl}}/admin/employees/invite/bulk", "host": ["{{baseUrl}}"], "path": ["admin", "employees", "invite", "bulk"] },
+            "description": "Invites many employees at once."
+          }
+        }
+      ]
+    },
+    {
+      "name": "Merchants",
+      "item": [
+        {
+          "name": "List merchants (spender)",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": { "raw": "{{baseUrl}}/spender/merchants?offset=0&limit=100&order=created_at.desc", "host": ["{{baseUrl}}"], "path": ["spender", "merchants"], "query": [{ "key": "offset", "value": "0" }, { "key": "limit", "value": "100" }, { "key": "order", "value": "created_at.desc" }] },
+            "description": "Lists merchant/vendor values available to the spender."
+          }
+        }
+      ]
+    },
+    {
+      "name": "Corporate Cards",
+      "item": [
+        {
+          "name": "List corporate cards (admin)",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": { "raw": "{{baseUrl}}/admin/corporate_cards?offset=0&limit=100&order=created_at.desc", "host": ["{{baseUrl}}"], "path": ["admin", "corporate_cards"], "query": [{ "key": "offset", "value": "0" }, { "key": "limit", "value": "100" }, { "key": "order", "value": "created_at.desc" }] },
+            "description": "Lists corporate cards enrolled in the organization."
+          }
+        },
+        {
+          "name": "List corporate card transactions (admin)",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": { "raw": "{{baseUrl}}/admin/corporate_card_transactions?offset=0&limit=100&order=created_at.desc", "host": ["{{baseUrl}}"], "path": ["admin", "corporate_card_transactions"], "query": [{ "key": "offset", "value": "0" }, { "key": "limit", "value": "100" }, { "key": "order", "value": "created_at.desc" }] },
+            "description": "Lists corporate card transactions received via real-time card feeds."
+          }
+        }
+      ]
+    },
+    {
+      "name": "Webhooks",
+      "item": [
+        {
+          "name": "List webhook subscriptions (admin)",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": { "raw": "{{baseUrl}}/admin/subscriptions?offset=0&limit=100&order=created_at.desc", "host": ["{{baseUrl}}"], "path": ["admin", "subscriptions"], "query": [{ "key": "offset", "value": "0" }, { "key": "limit", "value": "100" }, { "key": "order", "value": "created_at.desc" }] },
+            "description": "Lists webhook subscriptions."
+          }
+        },
+        {
+          "name": "Create a webhook subscription (admin)",
+          "request": {
+            "method": "POST",
+            "header": [{ "key": "Content-Type", "value": "application/json" }],
+            "body": { "mode": "raw", "raw": "{\n  \"data\": {\n    \"webhook_url\": \"https://example.com/fyle/webhook\",\n    \"is_enabled\": true\n  }\n}" },
+            "url": { "raw": "{{baseUrl}}/admin/subscriptions", "host": ["{{baseUrl}}"], "path": ["admin", "subscriptions"] },
+            "description": "Registers a webhook subscription with a callback URL."
+          }
+        }
+      ]
+    },
+    {
+      "name": "Files",
+      "item": [
+        {
+          "name": "Create a file (admin)",
+          "request": {
+            "method": "POST",
+            "header": [{ "key": "Content-Type", "value": "application/json" }],
+            "body": { "mode": "raw", "raw": "{\n  \"data\": {\n    \"name\": \"receipt.png\",\n    \"type\": \"image/png\"\n  }\n}" },
+            "url": { "raw": "{{baseUrl}}/admin/files", "host": ["{{baseUrl}}"], "path": ["admin", "files"] },
+            "description": "Creates a file record and returns a pre-signed upload URL."
+          }
+        },
+        {
+          "name": "Bulk generate file URLs (admin)",
+          "request": {
+            "method": "POST",
+            "header": [{ "key": "Content-Type", "value": "application/json" }],
+            "body": { "mode": "raw", "raw": "{\n  \"data\": [\n    { \"id\": \"fiXXXX\" }\n  ]\n}" },
+            "url": { "raw": "{{baseUrl}}/admin/files/generate_urls/bulk", "host": ["{{baseUrl}}"], "path": ["admin", "files", "generate_urls", "bulk"] },
+            "description": "Generates pre-signed upload/download URLs for many files at once."
+          }
+        }
+      ]
+    }
+  ]
+}

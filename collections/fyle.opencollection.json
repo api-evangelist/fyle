@@ -1,0 +1,221 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Fyle Platform API",
+    "version": "1.0"
+  },
+  "request": {
+    "auth": {
+      "type": "bearer",
+      "token": "{{accessToken}}"
+    }
+  },
+  "items": [
+    {
+      "info": { "name": "Expenses", "type": "folder" },
+      "items": [
+        {
+          "info": { "name": "List expenses (admin).", "type": "http" },
+          "http": { "method": "GET", "url": "https://api.fylehq.com/platform/v1/admin/expenses?offset=0&limit=100&order=created_at.desc" },
+          "docs": "Lists expenses submitted by any employee in the organization. offset, limit, and order are mandatory."
+        },
+        {
+          "info": { "name": "Create or update an expense (admin).", "type": "http" },
+          "http": {
+            "method": "POST",
+            "url": "https://api.fylehq.com/platform/v1/admin/expenses",
+            "body": { "type": "json", "data": "{\n  \"data\": {\n    \"merchant\": \"Uber\",\n    \"amount\": 24.5,\n    \"currency\": \"USD\"\n  }\n}" }
+          },
+          "docs": "Creates or updates (upserts) an expense."
+        },
+        {
+          "info": { "name": "List my expenses (spender).", "type": "http" },
+          "http": { "method": "GET", "url": "https://api.fylehq.com/platform/v1/spender/expenses?offset=0&limit=100&order=created_at.desc" },
+          "docs": "Lists the signed-in spender's own expenses."
+        },
+        {
+          "info": { "name": "Create expense from receipt (spender).", "type": "http" },
+          "http": {
+            "method": "POST",
+            "url": "https://api.fylehq.com/platform/v1/spender/expenses/create_from_receipt",
+            "body": { "type": "json", "data": "{\n  \"data\": {\n    \"file_id\": \"fiXXXX\"\n  }\n}" }
+          },
+          "docs": "Creates a draft expense from an uploaded receipt file."
+        }
+      ]
+    },
+    {
+      "info": { "name": "Reports", "type": "folder" },
+      "items": [
+        {
+          "info": { "name": "List reports (admin).", "type": "http" },
+          "http": { "method": "GET", "url": "https://api.fylehq.com/platform/v1/admin/reports?offset=0&limit=100&order=created_at.desc" },
+          "docs": "Lists expense reports in the organization."
+        },
+        {
+          "info": { "name": "Bulk mark reports as paid (admin).", "type": "http" },
+          "http": {
+            "method": "POST",
+            "url": "https://api.fylehq.com/platform/v1/admin/reports/mark_paid/bulk",
+            "body": { "type": "json", "data": "{\n  \"data\": [\n    { \"id\": \"rpXXXX\" }\n  ]\n}" }
+          },
+          "docs": "Marks multiple reports as paid after reimbursement."
+        },
+        {
+          "info": { "name": "Submit a report (spender).", "type": "http" },
+          "http": {
+            "method": "POST",
+            "url": "https://api.fylehq.com/platform/v1/spender/reports/submit",
+            "body": { "type": "json", "data": "{\n  \"data\": {\n    \"id\": \"rpXXXX\"\n  }\n}" }
+          },
+          "docs": "Submits a report for approval."
+        }
+      ]
+    },
+    {
+      "info": { "name": "Advances", "type": "folder" },
+      "items": [
+        {
+          "info": { "name": "List advance requests (admin).", "type": "http" },
+          "http": { "method": "GET", "url": "https://api.fylehq.com/platform/v1/admin/advance_requests?offset=0&limit=100&order=created_at.desc" },
+          "docs": "Lists advance requests raised by employees."
+        }
+      ]
+    },
+    {
+      "info": { "name": "Categories", "type": "folder" },
+      "items": [
+        {
+          "info": { "name": "List categories (admin).", "type": "http" },
+          "http": { "method": "GET", "url": "https://api.fylehq.com/platform/v1/admin/categories?offset=0&limit=100&order=created_at.desc" },
+          "docs": "Lists expense categories."
+        },
+        {
+          "info": { "name": "Bulk upsert categories (admin).", "type": "http" },
+          "http": {
+            "method": "POST",
+            "url": "https://api.fylehq.com/platform/v1/admin/categories/bulk",
+            "body": { "type": "json", "data": "{\n  \"data\": [\n    { \"name\": \"Travel\" }\n  ]\n}" }
+          },
+          "docs": "Creates or updates many categories (sync a chart of accounts)."
+        }
+      ]
+    },
+    {
+      "info": { "name": "Projects", "type": "folder" },
+      "items": [
+        {
+          "info": { "name": "List projects (admin).", "type": "http" },
+          "http": { "method": "GET", "url": "https://api.fylehq.com/platform/v1/admin/projects?offset=0&limit=100&order=created_at.desc" },
+          "docs": "Lists projects."
+        },
+        {
+          "info": { "name": "Bulk upsert projects (admin).", "type": "http" },
+          "http": {
+            "method": "POST",
+            "url": "https://api.fylehq.com/platform/v1/admin/projects/bulk",
+            "body": { "type": "json", "data": "{\n  \"data\": [\n    { \"name\": \"Client A\" }\n  ]\n}" }
+          },
+          "docs": "Creates or updates many projects."
+        }
+      ]
+    },
+    {
+      "info": { "name": "Cost Centers", "type": "folder" },
+      "items": [
+        {
+          "info": { "name": "List cost centers (admin).", "type": "http" },
+          "http": { "method": "GET", "url": "https://api.fylehq.com/platform/v1/admin/cost_centers?offset=0&limit=100&order=created_at.desc" },
+          "docs": "Lists cost centers."
+        }
+      ]
+    },
+    {
+      "info": { "name": "Employees", "type": "folder" },
+      "items": [
+        {
+          "info": { "name": "List employees (admin).", "type": "http" },
+          "http": { "method": "GET", "url": "https://api.fylehq.com/platform/v1/admin/employees?offset=0&limit=100&order=created_at.desc" },
+          "docs": "Lists employees."
+        },
+        {
+          "info": { "name": "Bulk invite employees (admin).", "type": "http" },
+          "http": {
+            "method": "POST",
+            "url": "https://api.fylehq.com/platform/v1/admin/employees/invite/bulk",
+            "body": { "type": "json", "data": "{\n  \"data\": [\n    { \"email\": \"user@example.com\" }\n  ]\n}" }
+          },
+          "docs": "Invites many employees at once."
+        }
+      ]
+    },
+    {
+      "info": { "name": "Merchants", "type": "folder" },
+      "items": [
+        {
+          "info": { "name": "List merchants (spender).", "type": "http" },
+          "http": { "method": "GET", "url": "https://api.fylehq.com/platform/v1/spender/merchants?offset=0&limit=100&order=created_at.desc" },
+          "docs": "Lists merchant/vendor values available to the spender."
+        }
+      ]
+    },
+    {
+      "info": { "name": "Corporate Cards", "type": "folder" },
+      "items": [
+        {
+          "info": { "name": "List corporate cards (admin).", "type": "http" },
+          "http": { "method": "GET", "url": "https://api.fylehq.com/platform/v1/admin/corporate_cards?offset=0&limit=100&order=created_at.desc" },
+          "docs": "Lists corporate cards enrolled in the organization."
+        },
+        {
+          "info": { "name": "List corporate card transactions (admin).", "type": "http" },
+          "http": { "method": "GET", "url": "https://api.fylehq.com/platform/v1/admin/corporate_card_transactions?offset=0&limit=100&order=created_at.desc" },
+          "docs": "Lists corporate card transactions received via real-time card feeds."
+        }
+      ]
+    },
+    {
+      "info": { "name": "Webhooks", "type": "folder" },
+      "items": [
+        {
+          "info": { "name": "List webhook subscriptions (admin).", "type": "http" },
+          "http": { "method": "GET", "url": "https://api.fylehq.com/platform/v1/admin/subscriptions?offset=0&limit=100&order=created_at.desc" },
+          "docs": "Lists webhook subscriptions."
+        },
+        {
+          "info": { "name": "Create a webhook subscription (admin).", "type": "http" },
+          "http": {
+            "method": "POST",
+            "url": "https://api.fylehq.com/platform/v1/admin/subscriptions",
+            "body": { "type": "json", "data": "{\n  \"data\": {\n    \"webhook_url\": \"https://example.com/fyle/webhook\",\n    \"is_enabled\": true\n  }\n}" }
+          },
+          "docs": "Registers a webhook subscription with a callback URL."
+        }
+      ]
+    },
+    {
+      "info": { "name": "Files", "type": "folder" },
+      "items": [
+        {
+          "info": { "name": "Create a file (admin).", "type": "http" },
+          "http": {
+            "method": "POST",
+            "url": "https://api.fylehq.com/platform/v1/admin/files",
+            "body": { "type": "json", "data": "{\n  \"data\": {\n    \"name\": \"receipt.png\",\n    \"type\": \"image/png\"\n  }\n}" }
+          },
+          "docs": "Creates a file record and returns a pre-signed upload URL."
+        },
+        {
+          "info": { "name": "Bulk generate file URLs (admin).", "type": "http" },
+          "http": {
+            "method": "POST",
+            "url": "https://api.fylehq.com/platform/v1/admin/files/generate_urls/bulk",
+            "body": { "type": "json", "data": "{\n  \"data\": [\n    { \"id\": \"fiXXXX\" }\n  ]\n}" }
+          },
+          "docs": "Generates pre-signed upload/download URLs for many files at once."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

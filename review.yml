@@ -1,0 +1,128 @@
+aid: fyle
+name: Fyle
+review:
+  question: Does Fyle expose a documented public WebSocket API?
+  answer: false
+  date: '2026-07-03'
+  reviewer: API Evangelist
+  asyncapiSpecCreated: false
+  asyncapiScopeNote: |
+    No AsyncAPI document was authored. Fyle's public Platform API is
+    request/response REST over HTTPS. Fyle's only server-push mechanism is
+    outbound webhooks (subscriptions and scheduled_callbacks that HTTP POST to a
+    consumer-configured URL) - server-to-endpoint HTTP, not a WebSocket or SSE
+    stream on Fyle's own API. There is no bidirectional or streaming transport
+    on Fyle's API to model.
+findings:
+  summary: |
+    Fyle (now branded Sage Expense Management) does not publish a documented
+    public WebSocket API. The Fyle Platform API is a role-scoped REST API served
+    under https://api.fylehq.com/platform/v1 with a role segment (admin,
+    spender, approver, common), authenticated via OAuth 2.0 using the
+    refresh-token grant to obtain short-lived Bearer access tokens. List
+    endpoints use a PostgREST-style convention with mandatory offset, limit, and
+    order query parameters and field-level filters (e.g. id=eq.<uuid>). The only
+    push mechanism is outbound webhooks - subscriptions and scheduled callbacks
+    that Fyle POSTs to a configured HTTPS endpoint. No realtime, bidirectional,
+    or streaming WebSocket (ws:// or wss://) endpoint is documented anywhere in
+    Fyle's Platform API reference as of the review date.
+  openSource: |
+    Fyle's core product is proprietary SaaS, but Fyle publishes open-source
+    client tooling on GitHub (github.com/fylein), including the Python Platform
+    SDK (fyle-platform-sdk-py) and an integrations platform connector. The
+    endpoint paths and HTTP verbs in this catalog are grounded in that
+    open-source SDK; request/response field schemas are modeled
+    representatively.
+  transports:
+    - protocol: REST
+      scheme: https
+      baseURL: https://api.fylehq.com/platform/v1
+      documented: true
+      note: Role-scoped Platform API (admin, spender, approver, common). Bearer OAuth 2.0.
+    - protocol: OAuth Token
+      scheme: https
+      documented: true
+      note: Refresh-token grant exchanged at Fyle's accounts/OAuth token endpoint for a short-lived access token.
+    - protocol: Webhook
+      scheme: https
+      documented: true
+      note: Outbound webhook subscriptions and scheduled callbacks POST event payloads to a consumer-configured HTTPS endpoint. Server-to-endpoint HTTP, not WebSocket.
+    - protocol: WebSocket
+      scheme: wss
+      documented: false
+      note: No WebSocket endpoint is documented anywhere in Fyle's Platform API reference as of the review date.
+  endpointsConfirmedRest:
+    - GET  https://api.fylehq.com/platform/v1/admin/expenses
+    - POST https://api.fylehq.com/platform/v1/admin/expenses
+    - POST https://api.fylehq.com/platform/v1/admin/expenses/accounting_export_summary/bulk
+    - GET  https://api.fylehq.com/platform/v1/spender/expenses
+    - POST https://api.fylehq.com/platform/v1/spender/expenses
+    - POST https://api.fylehq.com/platform/v1/spender/expenses/attach_receipt
+    - POST https://api.fylehq.com/platform/v1/spender/expenses/create_from_receipt
+    - GET  https://api.fylehq.com/platform/v1/admin/reports
+    - POST https://api.fylehq.com/platform/v1/admin/reports
+    - POST https://api.fylehq.com/platform/v1/admin/reports/mark_paid/bulk
+    - GET  https://api.fylehq.com/platform/v1/spender/reports
+    - POST https://api.fylehq.com/platform/v1/spender/reports
+    - POST https://api.fylehq.com/platform/v1/spender/reports/add_expenses
+    - POST https://api.fylehq.com/platform/v1/spender/reports/submit
+    - GET  https://api.fylehq.com/platform/v1/admin/advance_requests
+    - POST https://api.fylehq.com/platform/v1/admin/advance_requests
+    - GET  https://api.fylehq.com/platform/v1/admin/categories
+    - POST https://api.fylehq.com/platform/v1/admin/categories
+    - POST https://api.fylehq.com/platform/v1/admin/categories/bulk
+    - GET  https://api.fylehq.com/platform/v1/admin/projects
+    - POST https://api.fylehq.com/platform/v1/admin/projects
+    - POST https://api.fylehq.com/platform/v1/admin/projects/bulk
+    - GET  https://api.fylehq.com/platform/v1/admin/cost_centers
+    - POST https://api.fylehq.com/platform/v1/admin/cost_centers
+    - POST https://api.fylehq.com/platform/v1/admin/cost_centers/bulk
+    - GET  https://api.fylehq.com/platform/v1/admin/employees
+    - POST https://api.fylehq.com/platform/v1/admin/employees
+    - POST https://api.fylehq.com/platform/v1/admin/employees/invite/bulk
+    - GET  https://api.fylehq.com/platform/v1/spender/merchants
+    - POST https://api.fylehq.com/platform/v1/spender/merchants
+    - GET  https://api.fylehq.com/platform/v1/admin/corporate_cards
+    - GET  https://api.fylehq.com/platform/v1/admin/corporate_card_transactions
+    - POST https://api.fylehq.com/platform/v1/admin/corporate_card_transactions
+    - GET  https://api.fylehq.com/platform/v1/admin/subscriptions
+    - POST https://api.fylehq.com/platform/v1/admin/subscriptions
+    - GET  https://api.fylehq.com/platform/v1/admin/scheduled_callbacks
+    - POST https://api.fylehq.com/platform/v1/admin/scheduled_callbacks
+    - GET  https://api.fylehq.com/platform/v1/admin/files
+    - POST https://api.fylehq.com/platform/v1/admin/files
+    - POST https://api.fylehq.com/platform/v1/admin/files/generate_urls/bulk
+  endpointsModeled:
+    - Request and response object field shapes (Expense, Report, File, Subscription, etc.) are modeled representatively in openapi/fyle-openapi.yml; consult the live Stoplight reference at docs.fylehq.com for exhaustive schemas.
+    - Additional documented resources not enumerated as separate catalog APIs but present in the SDK/reference include departments, tax_groups, reimbursements, expense_fields, org_settings, accounting_exports, dependent_expense_field_values, and common resources (currencies, places, expense_extract).
+sources:
+  - url: https://docs.fylehq.com
+    type: Documentation
+    note: Stoplight-hosted Platform API docs (admin, spender, approver, common roles). REST only; no WebSocket.
+  - url: https://docs.fylehq.com/docs/fyle-platform-docs/d72728ede9b0e-admin-ap-is
+    type: APIReference
+    note: Admin API resource groups (expenses, reports, categories, projects, cost centers, employees, corporate cards, files, subscriptions, etc.).
+  - url: https://docs.fylehq.com/docs/fyle-platform-docs/8f79171ef2cb5-spender-ap-is
+    type: APIReference
+    note: Spender API resource groups (expenses, reports, merchants, files, etc.).
+  - url: https://docs.fylehq.com/docs/fyle-platform-docs/b3A6MTIyMzMxODU-o-auth-2-0-token
+    type: Documentation
+    note: OAuth 2.0 token flow (refresh-token grant to a Bearer access token).
+  - url: https://github.com/fylein/fyle-platform-sdk-py
+    type: SourceCode
+    note: Open-source Python SDK; endpoint paths and verbs derived from its api classes. URL pattern is {server_url}/{role}{endpoint}.
+  - url: https://www.fylehq.com/pricing
+    type: Pricing
+    note: Per active user/month pricing (Growth, Business, Enterprise), billed annually.
+actions:
+  asyncapiPath: null
+  apisYmlUpdated: true
+  reason: |
+    No WebSocket protocol surface exists on Fyle's own API. The Platform API is
+    request/response REST with OAuth 2.0, and the only push transport is
+    outbound HTTP webhooks (subscriptions / scheduled callbacks). No AsyncAPI
+    document was created because there is no server-push streaming transport
+    (WebSocket or SSE) on Fyle's API to model.
+maintainers:
+- FN: Kin Lane
+  email: kin@apievangelist.com
