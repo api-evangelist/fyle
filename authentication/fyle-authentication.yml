@@ -1,0 +1,16 @@
+generated: '2026-07-11'
+method: derived
+source: openapi/fyle-openapi.yml
+summary:
+  types:
+  - http
+schemes:
+- name: bearerAuth
+  type: http
+  scheme: bearer
+  bearerFormat: JWT
+  description: 'OAuth 2.0 Bearer access token. Obtain it via the refresh-token grant at the
+    Fyle OAuth token endpoint (accounts host) using your client_id, client_secret, and refresh_token,
+    then send it as `Authorization: Bearer <access_token>`.'
+  sources:
+  - openapi/fyle-openapi.yml

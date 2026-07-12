@@ -223,6 +223,10 @@ apis:
     once. Available at /admin/files (and /spender/files) with a
     /files/generate_urls/bulk helper.
 common:
+- type: DomainSecurity
+  url: security/fyle-domain-security.yml
+- type: Authentication
+  url: authentication/fyle-authentication.yml
 - type: GitHubOrganization
   url: https://github.com/fylein
 - type: LinkedIn
@@ -237,6 +241,8 @@ common:
   url: rate-limits/fyle-rate-limits.yml
 - type: FinOps
   url: finops/fyle-finops.yml
+- url: https://www.fylehq.com/blog
+  type: Blog
 maintainers:
 - FN: Kin Lane
   email: kin@apievangelist.com
