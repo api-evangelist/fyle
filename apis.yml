@@ -223,6 +223,8 @@ apis:
     once. Available at /admin/files (and /spender/files) with a
     /files/generate_urls/bulk helper.
 common:
+- type: AgenticAccess
+  url: agentic-access/fyle-agentic-access.yml
 - type: DomainSecurity
   url: security/fyle-domain-security.yml
 - type: Authentication
