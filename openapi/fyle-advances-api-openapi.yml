@@ -1,0 +1,146 @@
+openapi: 3.0.3
+info:
+  title: Fyle Platform Advances API
+  description: 'The Fyle Platform API (Fyle is now Sage Expense Management) exposes the objects behind Fyle''s spend and expense management product - expenses, expense reports, advances, categories, projects, cost centers, employees, merchants, corporate cards and their real-time transactions, files/receipts, and webhook subscriptions - as role-scoped REST resources. Every path is served under a role segment (admin, spender, approver, or common); this document models the admin, spender, and common surfaces most commonly used for accounting/HRMS integration.
+
+
+    Authentication is OAuth 2.0 using the refresh-token grant: exchange a long-lived refresh token (with client_id and client_secret) at the token endpoint for a short-lived Bearer access token, then send it as `Authorization: Bearer <access_token>`.
+
+
+    List endpoints follow a PostgREST-style convention: `offset`, `limit`, and `order` query parameters are mandatory, and any response field can be filtered with operators like `id=eq.<uuid>` or `updated_at=gte.<timestamp>`. A single resource is fetched by filtering on its id.
+
+
+    Endpoint paths and HTTP verbs in this document are grounded in Fyle''s open-source Python Platform SDK (github.com/fylein/fyle-platform-sdk-py). Request and response object field shapes are modeled representatively - consult the live Stoplight reference at docs.fylehq.com for exhaustive schemas.'
+  version: '1.0'
+  contact:
+    name: Fyle (Sage Expense Management)
+    url: https://www.fylehq.com
+  license:
+    name: Proprietary
+    url: https://www.fylehq.com/legal
+servers:
+- url: https://api.fylehq.com/platform/v1
+  description: Fyle Platform API (production cluster). The role segment (admin, spender, approver, common) is the first path element.
+security:
+- bearerAuth: []
+tags:
+- name: Advances
+  description: Advance requests raised by employees.
+paths:
+  /admin/advance_requests:
+    get:
+      operationId: listAdvanceRequests
+      tags:
+      - Advances
+      summary: List advance requests (admin)
+      description: Lists advance requests raised by employees, with filtering and pagination.
+      parameters:
+      - $ref: '#/components/parameters/Offset'
+      - $ref: '#/components/parameters/Limit'
+      - $ref: '#/components/parameters/Order'
+      responses:
+        '200':
+          description: A page of advance requests.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/GenericListResponse'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+    post:
+      operationId: upsertAdvanceRequest
+      tags:
+      - Advances
+      summary: Create or update an advance request (admin)
+      description: Creates or updates an advance request.
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/DataObjectRequest'
+      responses:
+        '200':
+          description: The created or updated advance request.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/GenericObjectResponse'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+components:
+  schemas:
+    GenericListResponse:
+      type: object
+      properties:
+        count:
+          type: integer
+        offset:
+          type: integer
+        data:
+          type: array
+          items:
+            type: object
+            additionalProperties: true
+    DataObjectRequest:
+      type: object
+      description: Generic upsert envelope; Fyle wraps the resource under a `data` object.
+      required:
+      - data
+      properties:
+        data:
+          type: object
+          additionalProperties: true
+    Error:
+      type: object
+      properties:
+        message:
+          type: string
+        error:
+          type: string
+    GenericObjectResponse:
+      type: object
+      properties:
+        data:
+          type: object
+          additionalProperties: true
+  responses:
+    Unauthorized:
+      description: Missing, invalid, or expired access token.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+  parameters:
+    Offset:
+      name: offset
+      in: query
+      required: true
+      description: Number of records to skip for pagination (mandatory).
+      schema:
+        type: integer
+        minimum: 0
+        default: 0
+    Order:
+      name: order
+      in: query
+      required: true
+      description: Sort order, e.g. `created_at.desc` or `updated_at.asc` (mandatory).
+      schema:
+        type: string
+        example: created_at.desc
+    Limit:
+      name: limit
+      in: query
+      required: true
+      description: Maximum number of records to return per page (mandatory).
+      schema:
+        type: integer
+        minimum: 1
+        default: 100
+  securitySchemes:
+    bearerAuth:
+      type: http
+      scheme: bearer
+      bearerFormat: JWT
+      description: 'OAuth 2.0 Bearer access token. Obtain it via the refresh-token grant at the Fyle OAuth token endpoint (accounts host) using your client_id, client_secret, and refresh_token, then send it as `Authorization: Bearer <access_token>`.'
