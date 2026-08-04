@@ -1,0 +1,34 @@
+{
+  "provider": "fyle",
+  "sources": [
+    "fyle-advances-api-openapi.yml",
+    "fyle-categories-api-openapi.yml",
+    "fyle-corporate-cards-api-openapi.yml",
+    "fyle-cost-centers-api-openapi.yml",
+    "fyle-employees-api-openapi.yml",
+    "fyle-expenses-api-openapi.yml",
+    "fyle-files-api-openapi.yml",
+    "fyle-merchants-api-openapi.yml",
+    "fyle-projects-api-openapi.yml",
+    "fyle-reports-api-openapi.yml",
+    "fyle-webhooks-api-openapi.yml"
+  ],
+  "outputs": [
+    "fyle-advances-api-openapi.yml",
+    "fyle-categories-api-openapi.yml",
+    "fyle-corporate-cards-api-openapi.yml",
+    "fyle-cost-centers-api-openapi.yml",
+    "fyle-employees-api-openapi.yml",
+    "fyle-expenses-api-openapi.yml",
+    "fyle-files-api-openapi.yml",
+    "fyle-merchants-api-openapi.yml",
+    "fyle-projects-api-openapi.yml",
+    "fyle-reports-api-openapi.yml",
+    "fyle-webhooks-api-openapi.yml"
+  ],
+  "archived": [],
+  "errors": [],
+  "warnings": [],
+  "notes": [],
+  "skipped": []
+}
