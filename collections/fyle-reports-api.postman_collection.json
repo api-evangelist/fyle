@@ -1,0 +1,1156 @@
+{
+  "item": [
+    {
+      "id": "5caf5379-4675-4a6b-9dc8-a41f4dc1ff96",
+      "name": "Reports",
+      "description": {
+        "content": "Expense reports submitted for approval and reimbursement.",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "844d328f-890f-44a8-ae34-c7da12fd524d",
+          "name": "List reports (admin)",
+          "request": {
+            "name": "List reports (admin)",
+            "description": {
+              "content": "Lists expense reports in the organization with filtering and pagination.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "admin",
+                "reports"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "offset",
+                  "value": "0",
+                  "description": "(Required) Number of records to skip for pagination (mandatory)."
+                },
+                {
+                  "disabled": false,
+                  "key": "limit",
+                  "value": "100",
+                  "description": "(Required) Maximum number of records to return per page (mandatory)."
+                },
+                {
+                  "disabled": false,
+                  "key": "order",
+                  "value": "<string>",
+                  "description": "(Required) Sort order, e.g. `created_at.desc` or `updated_at.asc` (mandatory)."
+                }
+              ],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "d2bc2878-b5c5-4d46-9cbe-c7ff99771594",
+              "name": "A page of reports.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "admin",
+                    "reports"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "offset",
+                      "value": "0"
+                    },
+                    {
+                      "key": "limit",
+                      "value": "100"
+                    },
+                    {
+                      "key": "order",
+                      "value": "created_at.desc"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"count\": 9825,\n  \"offset\": 6050,\n  \"data\": [\n    {\n      \"id\": \"rpABC123\",\n      \"org_id\": \"string\",\n      \"employee_id\": \"string\",\n      \"purpose\": \"string\",\n      \"state\": \"string\",\n      \"num_expenses\": 3471,\n      \"amount\": 2393.6660853716794,\n      \"currency\": \"string\",\n      \"is_manually_created\": false,\n      \"created_at\": \"1956-02-02T04:22:00.257Z\",\n      \"updated_at\": \"1957-06-10T05:47:17.038Z\"\n    },\n    {\n      \"id\": \"rpABC123\",\n      \"org_id\": \"string\",\n      \"employee_id\": \"string\",\n      \"purpose\": \"string\",\n      \"state\": \"string\",\n      \"num_expenses\": 9763,\n      \"amount\": 4814.733271085101,\n      \"currency\": \"string\",\n      \"is_manually_created\": true,\n      \"created_at\": \"1979-07-03T15:05:39.309Z\",\n      \"updated_at\": \"1967-09-27T22:10:28.348Z\"\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "9fa67cee-b0cd-4529-89e9-c265d67a092e",
+              "name": "Missing, invalid, or expired access token.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "admin",
+                    "reports"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "offset",
+                      "value": "0"
+                    },
+                    {
+                      "key": "limit",
+                      "value": "100"
+                    },
+                    {
+                      "key": "order",
+                      "value": "created_at.desc"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"message\": \"string\",\n  \"error\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "0d266bc3-5a9e-4628-beb9-c2684dc29415",
+          "name": "Create or update a report (admin)",
+          "request": {
+            "name": "Create or update a report (admin)",
+            "description": {
+              "content": "Creates or updates an expense report.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "admin",
+                "reports"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"data\": {\n    \"key_0\": 5680\n  }\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "ca3b17fd-3c49-41ab-b81e-6472f3014df0",
+              "name": "The created or updated report.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "admin",
+                    "reports"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"data\": {\n    \"key_0\": \"string\"\n  }\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"data\": {\n    \"id\": \"rpABC123\",\n    \"org_id\": \"string\",\n    \"employee_id\": \"string\",\n    \"purpose\": \"string\",\n    \"state\": \"string\",\n    \"num_expenses\": 2703,\n    \"amount\": 7823.831079367633,\n    \"currency\": \"string\",\n    \"is_manually_created\": false,\n    \"created_at\": \"1951-01-23T10:16:48.034Z\",\n    \"updated_at\": \"2024-07-10T13:42:14.737Z\"\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "fa89ab22-f224-495b-a926-6ae9eb292a37",
+              "name": "Missing, invalid, or expired access token.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "admin",
+                    "reports"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"data\": {\n    \"key_0\": \"string\"\n  }\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"message\": \"string\",\n  \"error\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "d0c96944-ad8c-4e6b-b5a2-5e6960dcd3a1",
+          "name": "Bulk mark reports as paid",
+          "request": {
+            "name": "Bulk mark reports as paid",
+            "description": {
+              "content": "Marks multiple reports as paid once they have been reimbursed outside Fyle.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "admin",
+                "reports",
+                "mark_paid",
+                "bulk"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"data\": [\n    {\n      \"key_0\": \"string\",\n      \"key_1\": 7049.485360783328\n    },\n    {\n      \"key_0\": 6541,\n      \"key_1\": false\n    }\n  ]\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "91779714-4a4a-4e0e-b68f-35dc525d27f0",
+              "name": "Bulk result.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "admin",
+                    "reports",
+                    "mark_paid",
+                    "bulk"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"data\": [\n    {\n      \"key_0\": 6930\n    },\n    {\n      \"key_0\": \"string\",\n      \"key_1\": 8748,\n      \"key_2\": 9310.868946982535\n    }\n  ]\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"count\": 2915,\n  \"offset\": 9536,\n  \"data\": [\n    {\n      \"id\": \"rpABC123\",\n      \"org_id\": \"string\",\n      \"employee_id\": \"string\",\n      \"purpose\": \"string\",\n      \"state\": \"string\",\n      \"num_expenses\": 557,\n      \"amount\": 5383.885087116293,\n      \"currency\": \"string\",\n      \"is_manually_created\": false,\n      \"created_at\": \"2001-05-05T02:45:11.491Z\",\n      \"updated_at\": \"1994-07-22T23:09:32.746Z\"\n    },\n    {\n      \"id\": \"rpABC123\",\n      \"org_id\": \"string\",\n      \"employee_id\": \"string\",\n      \"purpose\": \"string\",\n      \"state\": \"string\",\n      \"num_expenses\": 9740,\n      \"amount\": 3819.593448250034,\n      \"currency\": \"string\",\n      \"is_manually_created\": false,\n      \"created_at\": \"2000-03-10T11:56:51.194Z\",\n      \"updated_at\": \"1988-02-05T17:46:06.572Z\"\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "87769ddd-09ae-40ad-88b5-1276ed12e9f0",
+              "name": "Missing, invalid, or expired access token.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "admin",
+                    "reports",
+                    "mark_paid",
+                    "bulk"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"data\": [\n    {\n      \"key_0\": 6930\n    },\n    {\n      \"key_0\": \"string\",\n      \"key_1\": 8748,\n      \"key_2\": 9310.868946982535\n    }\n  ]\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"message\": \"string\",\n  \"error\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "c6cac95f-ad2c-42f2-a255-f09f147ee143",
+          "name": "List my reports (spender)",
+          "request": {
+            "name": "List my reports (spender)",
+            "description": {
+              "content": "Lists the signed-in spender's own reports.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "spender",
+                "reports"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "offset",
+                  "value": "0",
+                  "description": "(Required) Number of records to skip for pagination (mandatory)."
+                },
+                {
+                  "disabled": false,
+                  "key": "limit",
+                  "value": "100",
+                  "description": "(Required) Maximum number of records to return per page (mandatory)."
+                },
+                {
+                  "disabled": false,
+                  "key": "order",
+                  "value": "<string>",
+                  "description": "(Required) Sort order, e.g. `created_at.desc` or `updated_at.asc` (mandatory)."
+                }
+              ],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "ab3b3e54-0118-4f66-a4eb-ce9fbcde1da4",
+              "name": "A page of the spender's reports.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "spender",
+                    "reports"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "offset",
+                      "value": "0"
+                    },
+                    {
+                      "key": "limit",
+                      "value": "100"
+                    },
+                    {
+                      "key": "order",
+                      "value": "created_at.desc"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"count\": 2915,\n  \"offset\": 9536,\n  \"data\": [\n    {\n      \"id\": \"rpABC123\",\n      \"org_id\": \"string\",\n      \"employee_id\": \"string\",\n      \"purpose\": \"string\",\n      \"state\": \"string\",\n      \"num_expenses\": 557,\n      \"amount\": 5383.885087116293,\n      \"currency\": \"string\",\n      \"is_manually_created\": false,\n      \"created_at\": \"2001-05-05T02:45:11.491Z\",\n      \"updated_at\": \"1994-07-22T23:09:32.746Z\"\n    },\n    {\n      \"id\": \"rpABC123\",\n      \"org_id\": \"string\",\n      \"employee_id\": \"string\",\n      \"purpose\": \"string\",\n      \"state\": \"string\",\n      \"num_expenses\": 9740,\n      \"amount\": 3819.593448250034,\n      \"currency\": \"string\",\n      \"is_manually_created\": false,\n      \"created_at\": \"2000-03-10T11:56:51.194Z\",\n      \"updated_at\": \"1988-02-05T17:46:06.572Z\"\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "31d5bf48-45b1-4160-94c9-4c98d6419148",
+              "name": "Missing, invalid, or expired access token.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "spender",
+                    "reports"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "offset",
+                      "value": "0"
+                    },
+                    {
+                      "key": "limit",
+                      "value": "100"
+                    },
+                    {
+                      "key": "order",
+                      "value": "created_at.desc"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"message\": \"string\",\n  \"error\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "3bac5c26-7903-466d-95aa-499c8c42f23f",
+          "name": "Create a report (spender)",
+          "request": {
+            "name": "Create a report (spender)",
+            "description": {
+              "content": "Creates a report for the signed-in spender.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "spender",
+                "reports"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"data\": {\n    \"key_0\": 5680\n  }\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "9a3e60ff-c9b6-4ea8-ae44-43097e28fab2",
+              "name": "The created report.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "spender",
+                    "reports"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"data\": {\n    \"key_0\": \"string\"\n  }\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"data\": {\n    \"id\": \"rpABC123\",\n    \"org_id\": \"string\",\n    \"employee_id\": \"string\",\n    \"purpose\": \"string\",\n    \"state\": \"string\",\n    \"num_expenses\": 2703,\n    \"amount\": 7823.831079367633,\n    \"currency\": \"string\",\n    \"is_manually_created\": false,\n    \"created_at\": \"1951-01-23T10:16:48.034Z\",\n    \"updated_at\": \"2024-07-10T13:42:14.737Z\"\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "fc23756a-5a86-41ea-9059-587a125f93cc",
+              "name": "Missing, invalid, or expired access token.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "spender",
+                    "reports"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"data\": {\n    \"key_0\": \"string\"\n  }\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"message\": \"string\",\n  \"error\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "bac134f8-df4d-4393-8dba-855d5542c5bc",
+          "name": "Add expenses to a report",
+          "request": {
+            "name": "Add expenses to a report",
+            "description": {
+              "content": "Adds one or more expenses to an existing report.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "spender",
+                "reports",
+                "add_expenses"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"data\": {\n    \"key_0\": 5680\n  }\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "0aa9e193-4c3b-4c4f-9036-b5999fb5ea07",
+              "name": "The updated report.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "spender",
+                    "reports",
+                    "add_expenses"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"data\": {\n    \"key_0\": \"string\"\n  }\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"data\": {\n    \"id\": \"rpABC123\",\n    \"org_id\": \"string\",\n    \"employee_id\": \"string\",\n    \"purpose\": \"string\",\n    \"state\": \"string\",\n    \"num_expenses\": 2703,\n    \"amount\": 7823.831079367633,\n    \"currency\": \"string\",\n    \"is_manually_created\": false,\n    \"created_at\": \"1951-01-23T10:16:48.034Z\",\n    \"updated_at\": \"2024-07-10T13:42:14.737Z\"\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "697f2882-53c4-46b6-a26e-029deda23a58",
+              "name": "Missing, invalid, or expired access token.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "spender",
+                    "reports",
+                    "add_expenses"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"data\": {\n    \"key_0\": \"string\"\n  }\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"message\": \"string\",\n  \"error\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "92f603ed-68c1-4d44-abb7-1450312a2253",
+          "name": "Submit a report",
+          "request": {
+            "name": "Submit a report",
+            "description": {
+              "content": "Submits a report for approval.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "spender",
+                "reports",
+                "submit"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"data\": {\n    \"key_0\": 5680\n  }\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "ad11f36f-ae39-498d-ab9c-ef2efff3df86",
+              "name": "The submitted report.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "spender",
+                    "reports",
+                    "submit"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"data\": {\n    \"key_0\": \"string\"\n  }\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"data\": {\n    \"id\": \"rpABC123\",\n    \"org_id\": \"string\",\n    \"employee_id\": \"string\",\n    \"purpose\": \"string\",\n    \"state\": \"string\",\n    \"num_expenses\": 2703,\n    \"amount\": 7823.831079367633,\n    \"currency\": \"string\",\n    \"is_manually_created\": false,\n    \"created_at\": \"1951-01-23T10:16:48.034Z\",\n    \"updated_at\": \"2024-07-10T13:42:14.737Z\"\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "03037b26-b854-49da-aa75-3cdf42d54c94",
+              "name": "Missing, invalid, or expired access token.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "spender",
+                    "reports",
+                    "submit"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"data\": {\n    \"key_0\": \"string\"\n  }\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"message\": \"string\",\n  \"error\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "type": "string",
+      "value": "https://api.fylehq.com/platform/v1",
+      "key": "baseUrl"
+    }
+  ],
+  "auth": {
+    "type": "bearer",
+    "bearer": [
+      {
+        "key": "token",
+        "value": "{{bearerToken}}"
+      }
+    ]
+  },
+  "info": {
+    "_postman_id": "0c5a612a-2dba-48e5-8830-d07fd35b2fa3",
+    "name": "Fyle Platform Advances Reports API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "The Fyle Platform API (Fyle is now Sage Expense Management) exposes the objects behind Fyle's spend and expense management product - expenses, expense reports, advances, categories, projects, cost centers, employees, merchants, corporate cards and their real-time transactions, files/receipts, and webhook subscriptions - as role-scoped REST resources. Every path is served under a role segment (admin, spender, approver, or common); this document models the admin, spender, and common surfaces most commonly used for accounting/HRMS integration.\n\nAuthentication is OAuth 2.0 using the refresh-token grant: exchange a long-lived refresh token (with client_id and client_secret) at the token endpoint for a short-lived Bearer access token, then send it as `Authorization: Bearer <access_token>`.\n\nList endpoints follow a PostgREST-style convention: `offset`, `limit`, and `order` query parameters are mandatory, and any response field can be filtered with operators like `id=eq.<uuid>` or `updated_at=gte.<timestamp>`. A single resource is fetched by filtering on its id.\n\nEndpoint paths and HTTP verbs in this document are grounded in Fyle's open-source Python Platform SDK (github.com/fylein/fyle-platform-sdk-py). Request and response object field shapes are modeled representatively - consult the live Stoplight reference at docs.fylehq.com for exhaustive schemas.\n\nContact Support:\n Name: Fyle (Sage Expense Management)",
+      "type": "text/plain"
+    }
+  }
+}

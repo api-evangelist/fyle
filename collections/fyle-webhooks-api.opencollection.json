@@ -1,0 +1,116 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Fyle Platform Advances Webhooks API",
+    "version": "1.0"
+  },
+  "request": {
+    "auth": {
+      "type": "bearer",
+      "token": "{{bearerToken}}"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Webhooks",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "List webhook subscriptions (admin)",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.fylehq.com/platform/v1/admin/subscriptions",
+            "params": [
+              {
+                "name": "offset",
+                "value": "",
+                "type": "query",
+                "description": "Number of records to skip for pagination (mandatory)."
+              },
+              {
+                "name": "limit",
+                "value": "",
+                "type": "query",
+                "description": "Maximum number of records to return per page (mandatory)."
+              },
+              {
+                "name": "order",
+                "value": "",
+                "type": "query",
+                "description": "Sort order, e.g. `created_at.desc` or `updated_at.asc` (mandatory)."
+              }
+            ]
+          },
+          "docs": "Lists webhook subscriptions - the callback registrations Fyle POSTs to when objects change."
+        },
+        {
+          "info": {
+            "name": "Create or update a webhook subscription (admin)",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.fylehq.com/platform/v1/admin/subscriptions",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Registers or updates a webhook subscription with a callback URL and the events to notify on."
+        },
+        {
+          "info": {
+            "name": "List scheduled callbacks (admin)",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.fylehq.com/platform/v1/admin/scheduled_callbacks",
+            "params": [
+              {
+                "name": "offset",
+                "value": "",
+                "type": "query",
+                "description": "Number of records to skip for pagination (mandatory)."
+              },
+              {
+                "name": "limit",
+                "value": "",
+                "type": "query",
+                "description": "Maximum number of records to return per page (mandatory)."
+              },
+              {
+                "name": "order",
+                "value": "",
+                "type": "query",
+                "description": "Sort order, e.g. `created_at.desc` or `updated_at.asc` (mandatory)."
+              }
+            ]
+          },
+          "docs": "Lists scheduled callbacks - time-based HTTP callbacks Fyle will make to your endpoint."
+        },
+        {
+          "info": {
+            "name": "Create or update a scheduled callback (admin)",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.fylehq.com/platform/v1/admin/scheduled_callbacks",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Creates or updates a scheduled callback."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

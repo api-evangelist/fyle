@@ -1,0 +1,363 @@
+{
+  "item": [
+    {
+      "id": "36803e94-2025-4478-9482-4102ea9cec79",
+      "name": "Merchants",
+      "description": {
+        "content": "Merchant/vendor values available to spenders.",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "f1717026-f4af-4aba-8acc-8789c389a314",
+          "name": "List merchants (spender)",
+          "request": {
+            "name": "List merchants (spender)",
+            "description": {
+              "content": "Lists merchant/vendor values available to the signed-in spender.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "spender",
+                "merchants"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "offset",
+                  "value": "0",
+                  "description": "(Required) Number of records to skip for pagination (mandatory)."
+                },
+                {
+                  "disabled": false,
+                  "key": "limit",
+                  "value": "100",
+                  "description": "(Required) Maximum number of records to return per page (mandatory)."
+                },
+                {
+                  "disabled": false,
+                  "key": "order",
+                  "value": "<string>",
+                  "description": "(Required) Sort order, e.g. `created_at.desc` or `updated_at.asc` (mandatory)."
+                }
+              ],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "1e9f20a5-9d5f-4955-9110-dda8762f5229",
+              "name": "A page of merchants.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "spender",
+                    "merchants"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "offset",
+                      "value": "0"
+                    },
+                    {
+                      "key": "limit",
+                      "value": "100"
+                    },
+                    {
+                      "key": "order",
+                      "value": "created_at.desc"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"count\": 9970,\n  \"offset\": 5966,\n  \"data\": [\n    {\n      \"key_0\": \"string\",\n      \"key_1\": 1656.3341087323113,\n      \"key_2\": 8831\n    },\n    {\n      \"key_0\": true\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "f2ec5e2d-7911-4dfc-81f7-bc5ba039d7de",
+              "name": "Missing, invalid, or expired access token.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "spender",
+                    "merchants"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "offset",
+                      "value": "0"
+                    },
+                    {
+                      "key": "limit",
+                      "value": "100"
+                    },
+                    {
+                      "key": "order",
+                      "value": "created_at.desc"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"message\": \"string\",\n  \"error\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "7a911592-05e9-4036-8dc1-23fc6fabd6fb",
+          "name": "Bulk add merchants (spender)",
+          "request": {
+            "name": "Bulk add merchants (spender)",
+            "description": {
+              "content": "Adds new merchant values in bulk.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "spender",
+                "merchants"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"data\": [\n    {\n      \"key_0\": 5360.515608956092,\n      \"key_1\": \"string\",\n      \"key_2\": 1528\n    },\n    {\n      \"key_0\": 2318.6691484333564,\n      \"key_1\": \"string\",\n      \"key_2\": 7931,\n      \"key_3\": 6056.041714269061\n    }\n  ]\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "3d142490-5216-4d6b-b46a-f7b207ab8571",
+              "name": "The bulk result.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "spender",
+                    "merchants"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"data\": [\n    {\n      \"key_0\": 7013,\n      \"key_1\": \"string\"\n    },\n    {\n      \"key_0\": 4648,\n      \"key_1\": \"string\",\n      \"key_2\": 8107\n    }\n  ]\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"count\": 6026,\n  \"offset\": 1469,\n  \"data\": [\n    {\n      \"key_0\": 4662,\n      \"key_1\": 3721.054231075318\n    },\n    {\n      \"key_0\": 1161.2703368726307,\n      \"key_1\": 9202.9748400213,\n      \"key_2\": 2344.502421769248,\n      \"key_3\": true\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "b6a8d9b9-b456-4756-b9d6-2aa53ac8d6db",
+              "name": "Missing, invalid, or expired access token.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "spender",
+                    "merchants"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"data\": [\n    {\n      \"key_0\": 7013,\n      \"key_1\": \"string\"\n    },\n    {\n      \"key_0\": 4648,\n      \"key_1\": \"string\",\n      \"key_2\": 8107\n    }\n  ]\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"message\": \"string\",\n  \"error\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "type": "string",
+      "value": "https://api.fylehq.com/platform/v1",
+      "key": "baseUrl"
+    }
+  ],
+  "auth": {
+    "type": "bearer",
+    "bearer": [
+      {
+        "key": "token",
+        "value": "{{bearerToken}}"
+      }
+    ]
+  },
+  "info": {
+    "_postman_id": "0e5cf4a6-f502-48f8-baa4-d92b1eca7bdf",
+    "name": "Fyle Platform Advances Merchants API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "The Fyle Platform API (Fyle is now Sage Expense Management) exposes the objects behind Fyle's spend and expense management product - expenses, expense reports, advances, categories, projects, cost centers, employees, merchants, corporate cards and their real-time transactions, files/receipts, and webhook subscriptions - as role-scoped REST resources. Every path is served under a role segment (admin, spender, approver, or common); this document models the admin, spender, and common surfaces most commonly used for accounting/HRMS integration.\n\nAuthentication is OAuth 2.0 using the refresh-token grant: exchange a long-lived refresh token (with client_id and client_secret) at the token endpoint for a short-lived Bearer access token, then send it as `Authorization: Bearer <access_token>`.\n\nList endpoints follow a PostgREST-style convention: `offset`, `limit`, and `order` query parameters are mandatory, and any response field can be filtered with operators like `id=eq.<uuid>` or `updated_at=gte.<timestamp>`. A single resource is fetched by filtering on its id.\n\nEndpoint paths and HTTP verbs in this document are grounded in Fyle's open-source Python Platform SDK (github.com/fylein/fyle-platform-sdk-py). Request and response object field shapes are modeled representatively - consult the live Stoplight reference at docs.fylehq.com for exhaustive schemas.\n\nContact Support:\n Name: Fyle (Sage Expense Management)",
+      "type": "text/plain"
+    }
+  }
+}

@@ -1,0 +1,522 @@
+{
+  "item": [
+    {
+      "id": "f2d43802-5ad7-4ec0-ba76-e09da5eea47b",
+      "name": "Files",
+      "description": {
+        "content": "File records and pre-signed URLs for receipts and attachments.",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "d533b8aa-5098-4e1d-81f5-182ab9174bdb",
+          "name": "List files (admin)",
+          "request": {
+            "name": "List files (admin)",
+            "description": {
+              "content": "Lists file records (receipts and other attachments) with filtering and pagination.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "admin",
+                "files"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "offset",
+                  "value": "0",
+                  "description": "(Required) Number of records to skip for pagination (mandatory)."
+                },
+                {
+                  "disabled": false,
+                  "key": "limit",
+                  "value": "100",
+                  "description": "(Required) Maximum number of records to return per page (mandatory)."
+                },
+                {
+                  "disabled": false,
+                  "key": "order",
+                  "value": "<string>",
+                  "description": "(Required) Sort order, e.g. `created_at.desc` or `updated_at.asc` (mandatory)."
+                }
+              ],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "32efaf9b-4619-432a-a04f-53290b890400",
+              "name": "A page of files.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "admin",
+                    "files"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "offset",
+                      "value": "0"
+                    },
+                    {
+                      "key": "limit",
+                      "value": "100"
+                    },
+                    {
+                      "key": "order",
+                      "value": "created_at.desc"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"count\": 2800,\n  \"offset\": 4104,\n  \"data\": [\n    {\n      \"key_0\": false\n    },\n    {\n      \"key_0\": 558.6074301590371,\n      \"key_1\": 2271.471767765403\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "908e77cc-0d56-489a-804a-fa716ca5b9bb",
+              "name": "Missing, invalid, or expired access token.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "admin",
+                    "files"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "offset",
+                      "value": "0"
+                    },
+                    {
+                      "key": "limit",
+                      "value": "100"
+                    },
+                    {
+                      "key": "order",
+                      "value": "created_at.desc"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"message\": \"string\",\n  \"error\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "b24ecfdc-f951-43d6-ad63-569098e45720",
+          "name": "Create a file (admin)",
+          "request": {
+            "name": "Create a file (admin)",
+            "description": {
+              "content": "Creates a file record; the response includes an upload URL used to PUT the binary to storage.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "admin",
+                "files"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"data\": {\n    \"name\": \"<string>\",\n    \"type\": \"<string>\",\n    \"key_0\": 8896,\n    \"key_1\": 6316.15779807491,\n    \"key_2\": 2561.166527580172\n  }\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "fc28443c-8472-4841-a953-c64d4122a491",
+              "name": "The created file record.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "admin",
+                    "files"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"data\": {\n    \"name\": \"<string>\",\n    \"type\": \"<string>\"\n  }\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"data\": {\n    \"id\": \"fiABC123\",\n    \"name\": \"string\",\n    \"upload_url\": \"https://YLqbBtaygIwoD.snr5,M,HV9aXc\",\n    \"download_url\": \"https://DQtfVpiN.yvkRuRs-ZwbsGiW+DoHEzQWSddSAUp\"\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "a31c95d8-d7c9-41a0-ba60-ab7b604976e4",
+              "name": "Missing, invalid, or expired access token.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "admin",
+                    "files"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"data\": {\n    \"name\": \"<string>\",\n    \"type\": \"<string>\"\n  }\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"message\": \"string\",\n  \"error\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "e4600d97-be0e-4b56-87e5-2d471c1b8ee5",
+          "name": "Bulk generate file URLs (admin)",
+          "request": {
+            "name": "Bulk generate file URLs (admin)",
+            "description": {
+              "content": "Generates pre-signed upload and/or download URLs for many files in one request.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "admin",
+                "files",
+                "generate_urls",
+                "bulk"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"data\": [\n    {\n      \"key_0\": 1475\n    },\n    {\n      \"key_0\": true\n    }\n  ]\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "2c913041-4635-4b68-9af9-21af4fdc1c7c",
+              "name": "The generated URLs.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "admin",
+                    "files",
+                    "generate_urls",
+                    "bulk"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"data\": [\n    {\n      \"key_0\": 5527.596566780554,\n      \"key_1\": 6867.5567702808\n    },\n    {\n      \"key_0\": 9524.445161368607\n    }\n  ]\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"count\": 3575,\n  \"offset\": 1253,\n  \"data\": [\n    {\n      \"key_0\": \"string\",\n      \"key_1\": false\n    },\n    {\n      \"key_0\": false,\n      \"key_1\": \"string\",\n      \"key_2\": false\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "3a042bef-e140-4149-b714-c6a01ee34c8e",
+              "name": "Missing, invalid, or expired access token.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "admin",
+                    "files",
+                    "generate_urls",
+                    "bulk"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"data\": [\n    {\n      \"key_0\": 5527.596566780554,\n      \"key_1\": 6867.5567702808\n    },\n    {\n      \"key_0\": 9524.445161368607\n    }\n  ]\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"message\": \"string\",\n  \"error\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "type": "string",
+      "value": "https://api.fylehq.com/platform/v1",
+      "key": "baseUrl"
+    }
+  ],
+  "auth": {
+    "type": "bearer",
+    "bearer": [
+      {
+        "key": "token",
+        "value": "{{bearerToken}}"
+      }
+    ]
+  },
+  "info": {
+    "_postman_id": "db68aa4b-87af-448c-9555-0188218244e6",
+    "name": "Fyle Platform Advances Files API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "The Fyle Platform API (Fyle is now Sage Expense Management) exposes the objects behind Fyle's spend and expense management product - expenses, expense reports, advances, categories, projects, cost centers, employees, merchants, corporate cards and their real-time transactions, files/receipts, and webhook subscriptions - as role-scoped REST resources. Every path is served under a role segment (admin, spender, approver, or common); this document models the admin, spender, and common surfaces most commonly used for accounting/HRMS integration.\n\nAuthentication is OAuth 2.0 using the refresh-token grant: exchange a long-lived refresh token (with client_id and client_secret) at the token endpoint for a short-lived Bearer access token, then send it as `Authorization: Bearer <access_token>`.\n\nList endpoints follow a PostgREST-style convention: `offset`, `limit`, and `order` query parameters are mandatory, and any response field can be filtered with operators like `id=eq.<uuid>` or `updated_at=gte.<timestamp>`. A single resource is fetched by filtering on its id.\n\nEndpoint paths and HTTP verbs in this document are grounded in Fyle's open-source Python Platform SDK (github.com/fylein/fyle-platform-sdk-py). Request and response object field shapes are modeled representatively - consult the live Stoplight reference at docs.fylehq.com for exhaustive schemas.\n\nContact Support:\n Name: Fyle (Sage Expense Management)",
+      "type": "text/plain"
+    }
+  }
+}

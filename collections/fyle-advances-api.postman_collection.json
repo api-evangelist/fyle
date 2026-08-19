@@ -1,0 +1,363 @@
+{
+  "item": [
+    {
+      "id": "9e09c615-a11e-47d1-a40a-e041241eea4f",
+      "name": "Advances",
+      "description": {
+        "content": "Advance requests raised by employees.",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "7b32cac5-ac44-4394-ba9a-6dd3e7fa1ad4",
+          "name": "List advance requests (admin)",
+          "request": {
+            "name": "List advance requests (admin)",
+            "description": {
+              "content": "Lists advance requests raised by employees, with filtering and pagination.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "admin",
+                "advance_requests"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "offset",
+                  "value": "0",
+                  "description": "(Required) Number of records to skip for pagination (mandatory)."
+                },
+                {
+                  "disabled": false,
+                  "key": "limit",
+                  "value": "100",
+                  "description": "(Required) Maximum number of records to return per page (mandatory)."
+                },
+                {
+                  "disabled": false,
+                  "key": "order",
+                  "value": "<string>",
+                  "description": "(Required) Sort order, e.g. `created_at.desc` or `updated_at.asc` (mandatory)."
+                }
+              ],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "e4f042df-8b87-4708-bfa9-92c897ba936a",
+              "name": "A page of advance requests.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "admin",
+                    "advance_requests"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "offset",
+                      "value": "0"
+                    },
+                    {
+                      "key": "limit",
+                      "value": "100"
+                    },
+                    {
+                      "key": "order",
+                      "value": "created_at.desc"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"count\": 7556,\n  \"offset\": 5109,\n  \"data\": [\n    {\n      \"key_0\": \"string\"\n    },\n    {\n      \"key_0\": 5524\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "cfb4ae4c-554c-4078-8fd8-b355e1f8c4a7",
+              "name": "Missing, invalid, or expired access token.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "admin",
+                    "advance_requests"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "offset",
+                      "value": "0"
+                    },
+                    {
+                      "key": "limit",
+                      "value": "100"
+                    },
+                    {
+                      "key": "order",
+                      "value": "created_at.desc"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"message\": \"string\",\n  \"error\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "d82258bf-4fb6-4d7e-b014-be1d2acd0db5",
+          "name": "Create or update an advance request (admin)",
+          "request": {
+            "name": "Create or update an advance request (admin)",
+            "description": {
+              "content": "Creates or updates an advance request.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "admin",
+                "advance_requests"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"data\": {\n    \"key_0\": 9487\n  }\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "2564949f-ec2c-484d-9d97-ce55382ab9df",
+              "name": "The created or updated advance request.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "admin",
+                    "advance_requests"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"data\": {\n    \"key_0\": \"string\",\n    \"key_1\": \"string\",\n    \"key_2\": \"string\",\n    \"key_3\": true\n  }\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"data\": {\n    \"key_0\": 4641,\n    \"key_1\": 8762.638695664742\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "ac524136-bcaa-4645-b08c-789478e0c894",
+              "name": "Missing, invalid, or expired access token.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "admin",
+                    "advance_requests"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"data\": {\n    \"key_0\": \"string\",\n    \"key_1\": \"string\",\n    \"key_2\": \"string\",\n    \"key_3\": true\n  }\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"message\": \"string\",\n  \"error\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "type": "string",
+      "value": "https://api.fylehq.com/platform/v1",
+      "key": "baseUrl"
+    }
+  ],
+  "auth": {
+    "type": "bearer",
+    "bearer": [
+      {
+        "key": "token",
+        "value": "{{bearerToken}}"
+      }
+    ]
+  },
+  "info": {
+    "_postman_id": "a1da319e-6bb9-4e16-b56e-206106c8a57f",
+    "name": "Fyle Platform Advances API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "The Fyle Platform API (Fyle is now Sage Expense Management) exposes the objects behind Fyle's spend and expense management product - expenses, expense reports, advances, categories, projects, cost centers, employees, merchants, corporate cards and their real-time transactions, files/receipts, and webhook subscriptions - as role-scoped REST resources. Every path is served under a role segment (admin, spender, approver, or common); this document models the admin, spender, and common surfaces most commonly used for accounting/HRMS integration.\n\nAuthentication is OAuth 2.0 using the refresh-token grant: exchange a long-lived refresh token (with client_id and client_secret) at the token endpoint for a short-lived Bearer access token, then send it as `Authorization: Bearer <access_token>`.\n\nList endpoints follow a PostgREST-style convention: `offset`, `limit`, and `order` query parameters are mandatory, and any response field can be filtered with operators like `id=eq.<uuid>` or `updated_at=gte.<timestamp>`. A single resource is fetched by filtering on its id.\n\nEndpoint paths and HTTP verbs in this document are grounded in Fyle's open-source Python Platform SDK (github.com/fylein/fyle-platform-sdk-py). Request and response object field shapes are modeled representatively - consult the live Stoplight reference at docs.fylehq.com for exhaustive schemas.\n\nContact Support:\n Name: Fyle (Sage Expense Management)",
+      "type": "text/plain"
+    }
+  }
+}

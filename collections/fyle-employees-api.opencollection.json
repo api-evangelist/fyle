@@ -1,0 +1,85 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Fyle Platform Advances Employees API",
+    "version": "1.0"
+  },
+  "request": {
+    "auth": {
+      "type": "bearer",
+      "token": "{{bearerToken}}"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Employees",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "List employees (admin)",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.fylehq.com/platform/v1/admin/employees",
+            "params": [
+              {
+                "name": "offset",
+                "value": "",
+                "type": "query",
+                "description": "Number of records to skip for pagination (mandatory)."
+              },
+              {
+                "name": "limit",
+                "value": "",
+                "type": "query",
+                "description": "Maximum number of records to return per page (mandatory)."
+              },
+              {
+                "name": "order",
+                "value": "",
+                "type": "query",
+                "description": "Sort order, e.g. `created_at.desc` or `updated_at.asc` (mandatory)."
+              }
+            ]
+          },
+          "docs": "Lists employees with filtering and pagination."
+        },
+        {
+          "info": {
+            "name": "Create or update an employee (admin)",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.fylehq.com/platform/v1/admin/employees",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Creates or updates a single employee record."
+        },
+        {
+          "info": {
+            "name": "Bulk invite employees (admin)",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.fylehq.com/platform/v1/admin/employees/invite/bulk",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Invites many employees to the organization in one request."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

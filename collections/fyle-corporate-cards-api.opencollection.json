@@ -1,0 +1,101 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Fyle Platform Advances Corporate Cards API",
+    "version": "1.0"
+  },
+  "request": {
+    "auth": {
+      "type": "bearer",
+      "token": "{{bearerToken}}"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Corporate Cards",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "List corporate cards (admin)",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.fylehq.com/platform/v1/admin/corporate_cards",
+            "params": [
+              {
+                "name": "offset",
+                "value": "",
+                "type": "query",
+                "description": "Number of records to skip for pagination (mandatory)."
+              },
+              {
+                "name": "limit",
+                "value": "",
+                "type": "query",
+                "description": "Maximum number of records to return per page (mandatory)."
+              },
+              {
+                "name": "order",
+                "value": "",
+                "type": "query",
+                "description": "Sort order, e.g. `created_at.desc` or `updated_at.asc` (mandatory)."
+              }
+            ]
+          },
+          "docs": "Lists corporate cards enrolled in the organization."
+        },
+        {
+          "info": {
+            "name": "List corporate card transactions (admin)",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.fylehq.com/platform/v1/admin/corporate_card_transactions",
+            "params": [
+              {
+                "name": "offset",
+                "value": "",
+                "type": "query",
+                "description": "Number of records to skip for pagination (mandatory)."
+              },
+              {
+                "name": "limit",
+                "value": "",
+                "type": "query",
+                "description": "Maximum number of records to return per page (mandatory)."
+              },
+              {
+                "name": "order",
+                "value": "",
+                "type": "query",
+                "description": "Sort order, e.g. `created_at.desc` or `updated_at.asc` (mandatory)."
+              }
+            ]
+          },
+          "docs": "Lists corporate card transactions received via Fyle's real-time card feeds. Supports filtering (for example by card, date, or matched state) and pagination."
+        },
+        {
+          "info": {
+            "name": "Create or update a corporate card transaction (admin)",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.fylehq.com/platform/v1/admin/corporate_card_transactions",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Creates or updates a corporate card transaction (for example to import feed data)."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

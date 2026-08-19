@@ -1,0 +1,85 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Fyle Platform Advances Categories API",
+    "version": "1.0"
+  },
+  "request": {
+    "auth": {
+      "type": "bearer",
+      "token": "{{bearerToken}}"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Categories",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "List categories (admin)",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.fylehq.com/platform/v1/admin/categories",
+            "params": [
+              {
+                "name": "offset",
+                "value": "",
+                "type": "query",
+                "description": "Number of records to skip for pagination (mandatory)."
+              },
+              {
+                "name": "limit",
+                "value": "",
+                "type": "query",
+                "description": "Maximum number of records to return per page (mandatory)."
+              },
+              {
+                "name": "order",
+                "value": "",
+                "type": "query",
+                "description": "Sort order, e.g. `created_at.desc` or `updated_at.asc` (mandatory)."
+              }
+            ]
+          },
+          "docs": "Lists expense categories with filtering and pagination."
+        },
+        {
+          "info": {
+            "name": "Create or update a category (admin)",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.fylehq.com/platform/v1/admin/categories",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Creates or updates a single expense category."
+        },
+        {
+          "info": {
+            "name": "Bulk create or update categories (admin)",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.fylehq.com/platform/v1/admin/categories/bulk",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Creates or updates many categories in one request (used to sync a chart of accounts)."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

@@ -1,0 +1,1236 @@
+{
+  "item": [
+    {
+      "id": "f7afada3-112c-4c6e-859e-609315b81415",
+      "name": "Expenses",
+      "description": {
+        "content": "Expenses across the organization (admin) or for the signed-in spender.",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "91351af6-3b34-4240-b544-f9fbbcad12a8",
+          "name": "List expenses (admin)",
+          "request": {
+            "name": "List expenses (admin)",
+            "description": {
+              "content": "Lists expenses submitted by any employee in the current organization. Supports rich PostgREST-style filtering on any response field and mandatory offset/limit/order pagination.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "admin",
+                "expenses"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "offset",
+                  "value": "0",
+                  "description": "(Required) Number of records to skip for pagination (mandatory)."
+                },
+                {
+                  "disabled": false,
+                  "key": "limit",
+                  "value": "100",
+                  "description": "(Required) Maximum number of records to return per page (mandatory)."
+                },
+                {
+                  "disabled": false,
+                  "key": "order",
+                  "value": "<string>",
+                  "description": "(Required) Sort order, e.g. `created_at.desc` or `updated_at.asc` (mandatory)."
+                },
+                {
+                  "disabled": false,
+                  "key": "id",
+                  "value": "<string>",
+                  "description": "Filter by expense id, e.g. `eq.txXXXX` or `in.(txA,txB)`."
+                },
+                {
+                  "disabled": false,
+                  "key": "updated_at",
+                  "value": "<string>",
+                  "description": "Filter by last-updated timestamp, e.g. `gte.2026-01-01T00:00:00.000Z`."
+                }
+              ],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "15acf79f-406e-4124-90b0-82b6714763b4",
+              "name": "A page of expenses.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "admin",
+                    "expenses"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "offset",
+                      "value": "0"
+                    },
+                    {
+                      "key": "limit",
+                      "value": "100"
+                    },
+                    {
+                      "key": "order",
+                      "value": "created_at.desc"
+                    },
+                    {
+                      "key": "id",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "updated_at",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"count\": 22,\n  \"offset\": 3525,\n  \"data\": [\n    {\n      \"id\": \"txABC123\",\n      \"org_id\": \"string\",\n      \"employee_id\": \"string\",\n      \"merchant\": \"string\",\n      \"purpose\": \"string\",\n      \"category_id\": \"string\",\n      \"project_id\": \"string\",\n      \"cost_center_id\": \"string\",\n      \"report_id\": \"string\",\n      \"amount\": 7117.80054834397,\n      \"currency\": \"USD\",\n      \"foreign_amount\": 2207.5924124039047,\n      \"foreign_currency\": \"string\",\n      \"spent_at\": \"1954-09-22T03:20:28.311Z\",\n      \"is_reimbursable\": false,\n      \"state\": \"string\",\n      \"source\": \"string\",\n      \"file_ids\": [\n        \"string\",\n        \"string\"\n      ],\n      \"created_at\": \"2013-06-28T00:20:15.891Z\",\n      \"updated_at\": \"1955-08-29T08:32:03.344Z\"\n    },\n    {\n      \"id\": \"txABC123\",\n      \"org_id\": \"string\",\n      \"employee_id\": \"string\",\n      \"merchant\": \"string\",\n      \"purpose\": \"string\",\n      \"category_id\": \"string\",\n      \"project_id\": \"string\",\n      \"cost_center_id\": \"string\",\n      \"report_id\": \"string\",\n      \"amount\": 173.5962748109754,\n      \"currency\": \"USD\",\n      \"foreign_amount\": 539.558941633821,\n      \"foreign_currency\": \"string\",\n      \"spent_at\": \"1967-03-15T14:55:47.789Z\",\n      \"is_reimbursable\": true,\n      \"state\": \"string\",\n      \"source\": \"string\",\n      \"file_ids\": [\n        \"string\",\n        \"string\"\n      ],\n      \"created_at\": \"1987-05-31T11:51:27.376Z\",\n      \"updated_at\": \"1950-11-03T02:34:40.497Z\"\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "372b3fae-8f72-46e8-9722-60087336e710",
+              "name": "Missing, invalid, or expired access token.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "admin",
+                    "expenses"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "offset",
+                      "value": "0"
+                    },
+                    {
+                      "key": "limit",
+                      "value": "100"
+                    },
+                    {
+                      "key": "order",
+                      "value": "created_at.desc"
+                    },
+                    {
+                      "key": "id",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "updated_at",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"message\": \"string\",\n  \"error\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "cd0af769-d6ad-4b7b-8972-e8cf76be7a5b",
+          "name": "Create or update an expense (admin)",
+          "request": {
+            "name": "Create or update an expense (admin)",
+            "description": {
+              "content": "Creates a new expense or updates an existing one (upsert) in the organization.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "admin",
+                "expenses"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"data\": {\n    \"id\": \"<string>\",\n    \"org_id\": \"<string>\",\n    \"employee_id\": \"<string>\",\n    \"merchant\": \"<string>\",\n    \"purpose\": \"<string>\",\n    \"category_id\": \"<string>\",\n    \"project_id\": \"<string>\",\n    \"cost_center_id\": \"<string>\",\n    \"report_id\": \"<string>\",\n    \"amount\": \"<double>\",\n    \"currency\": \"<string>\",\n    \"foreign_amount\": \"<double>\",\n    \"foreign_currency\": \"<string>\",\n    \"spent_at\": \"<dateTime>\",\n    \"is_reimbursable\": \"<boolean>\",\n    \"state\": \"<string>\",\n    \"source\": \"<string>\",\n    \"file_ids\": [\n      \"<string>\",\n      \"<string>\"\n    ],\n    \"created_at\": \"<dateTime>\",\n    \"updated_at\": \"<dateTime>\"\n  }\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "0cb8bae1-cfb3-4ddd-af08-c75db8fce0d0",
+              "name": "The created or updated expense.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "admin",
+                    "expenses"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"data\": {\n    \"id\": \"txABC123\",\n    \"org_id\": \"<string>\",\n    \"employee_id\": \"<string>\",\n    \"merchant\": \"<string>\",\n    \"purpose\": \"<string>\",\n    \"category_id\": \"<string>\",\n    \"project_id\": \"<string>\",\n    \"cost_center_id\": \"<string>\",\n    \"report_id\": \"<string>\",\n    \"amount\": \"<double>\",\n    \"currency\": \"USD\",\n    \"foreign_amount\": \"<double>\",\n    \"foreign_currency\": \"<string>\",\n    \"spent_at\": \"<dateTime>\",\n    \"is_reimbursable\": \"<boolean>\",\n    \"state\": \"<string>\",\n    \"source\": \"<string>\",\n    \"file_ids\": [\n      \"<string>\",\n      \"<string>\"\n    ],\n    \"created_at\": \"<dateTime>\",\n    \"updated_at\": \"<dateTime>\"\n  }\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"data\": {\n    \"id\": \"txABC123\",\n    \"org_id\": \"<string>\",\n    \"employee_id\": \"<string>\",\n    \"merchant\": \"<string>\",\n    \"purpose\": \"<string>\",\n    \"category_id\": \"<string>\",\n    \"project_id\": \"<string>\",\n    \"cost_center_id\": \"<string>\",\n    \"report_id\": \"<string>\",\n    \"amount\": \"<double>\",\n    \"currency\": \"USD\",\n    \"foreign_amount\": \"<double>\",\n    \"foreign_currency\": \"<string>\",\n    \"spent_at\": \"<dateTime>\",\n    \"is_reimbursable\": \"<boolean>\",\n    \"state\": \"<string>\",\n    \"source\": \"<string>\",\n    \"file_ids\": [\n      \"<string>\",\n      \"<string>\"\n    ],\n    \"created_at\": \"<dateTime>\",\n    \"updated_at\": \"<dateTime>\"\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "03fd0569-52ea-4cda-bac8-616242999677",
+              "name": "One or more parameters are invalid.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "admin",
+                    "expenses"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"data\": {\n    \"id\": \"txABC123\",\n    \"org_id\": \"<string>\",\n    \"employee_id\": \"<string>\",\n    \"merchant\": \"<string>\",\n    \"purpose\": \"<string>\",\n    \"category_id\": \"<string>\",\n    \"project_id\": \"<string>\",\n    \"cost_center_id\": \"<string>\",\n    \"report_id\": \"<string>\",\n    \"amount\": \"<double>\",\n    \"currency\": \"USD\",\n    \"foreign_amount\": \"<double>\",\n    \"foreign_currency\": \"<string>\",\n    \"spent_at\": \"<dateTime>\",\n    \"is_reimbursable\": \"<boolean>\",\n    \"state\": \"<string>\",\n    \"source\": \"<string>\",\n    \"file_ids\": [\n      \"<string>\",\n      \"<string>\"\n    ],\n    \"created_at\": \"<dateTime>\",\n    \"updated_at\": \"<dateTime>\"\n  }\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"message\": \"string\",\n  \"error\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "d732e6fe-b2ba-4beb-b422-062de049f84f",
+              "name": "Missing, invalid, or expired access token.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "admin",
+                    "expenses"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"data\": {\n    \"id\": \"txABC123\",\n    \"org_id\": \"<string>\",\n    \"employee_id\": \"<string>\",\n    \"merchant\": \"<string>\",\n    \"purpose\": \"<string>\",\n    \"category_id\": \"<string>\",\n    \"project_id\": \"<string>\",\n    \"cost_center_id\": \"<string>\",\n    \"report_id\": \"<string>\",\n    \"amount\": \"<double>\",\n    \"currency\": \"USD\",\n    \"foreign_amount\": \"<double>\",\n    \"foreign_currency\": \"<string>\",\n    \"spent_at\": \"<dateTime>\",\n    \"is_reimbursable\": \"<boolean>\",\n    \"state\": \"<string>\",\n    \"source\": \"<string>\",\n    \"file_ids\": [\n      \"<string>\",\n      \"<string>\"\n    ],\n    \"created_at\": \"<dateTime>\",\n    \"updated_at\": \"<dateTime>\"\n  }\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"message\": \"string\",\n  \"error\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "66cb3ba3-1b3f-4c25-9c1d-9b0b406fe4ac",
+          "name": "Bulk update accounting export summary",
+          "request": {
+            "name": "Bulk update accounting export summary",
+            "description": {
+              "content": "Bulk-updates the accounting export summary on many expenses (used to sync export status back from an accounting system).",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "admin",
+                "expenses",
+                "accounting_export_summary",
+                "bulk"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"data\": [\n    {\n      \"key_0\": 1786\n    },\n    {\n      \"key_0\": 1372.8786981138562,\n      \"key_1\": 2035.1806705399201\n    }\n  ]\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "ee2c0c92-8e03-40d3-9606-0073ee8fc850",
+              "name": "Bulk update result.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "admin",
+                    "expenses",
+                    "accounting_export_summary",
+                    "bulk"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"data\": [\n    {\n      \"key_0\": false,\n      \"key_1\": \"string\"\n    },\n    {\n      \"key_0\": 8604,\n      \"key_1\": 1714.799227599827,\n      \"key_2\": \"string\",\n      \"key_3\": 5554,\n      \"key_4\": 7450\n    }\n  ]\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"count\": 728,\n  \"offset\": 6615,\n  \"data\": [\n    {\n      \"id\": \"txABC123\",\n      \"org_id\": \"<string>\",\n      \"employee_id\": \"<string>\",\n      \"merchant\": \"<string>\",\n      \"purpose\": \"<string>\",\n      \"category_id\": \"<string>\",\n      \"project_id\": \"<string>\",\n      \"cost_center_id\": \"<string>\",\n      \"report_id\": \"<string>\",\n      \"amount\": \"<double>\",\n      \"currency\": \"USD\",\n      \"foreign_amount\": \"<double>\",\n      \"foreign_currency\": \"<string>\",\n      \"spent_at\": \"<dateTime>\",\n      \"is_reimbursable\": \"<boolean>\",\n      \"state\": \"<string>\",\n      \"source\": \"<string>\",\n      \"file_ids\": [\n        \"<string>\",\n        \"<string>\"\n      ],\n      \"created_at\": \"<dateTime>\",\n      \"updated_at\": \"<dateTime>\"\n    },\n    {\n      \"id\": \"txABC123\",\n      \"org_id\": \"<string>\",\n      \"employee_id\": \"<string>\",\n      \"merchant\": \"<string>\",\n      \"purpose\": \"<string>\",\n      \"category_id\": \"<string>\",\n      \"project_id\": \"<string>\",\n      \"cost_center_id\": \"<string>\",\n      \"report_id\": \"<string>\",\n      \"amount\": \"<double>\",\n      \"currency\": \"USD\",\n      \"foreign_amount\": \"<double>\",\n      \"foreign_currency\": \"<string>\",\n      \"spent_at\": \"<dateTime>\",\n      \"is_reimbursable\": \"<boolean>\",\n      \"state\": \"<string>\",\n      \"source\": \"<string>\",\n      \"file_ids\": [\n        \"<string>\",\n        \"<string>\"\n      ],\n      \"created_at\": \"<dateTime>\",\n      \"updated_at\": \"<dateTime>\"\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "f5f7b1e7-022b-419c-ad82-f4a882e59b4f",
+              "name": "Missing, invalid, or expired access token.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "admin",
+                    "expenses",
+                    "accounting_export_summary",
+                    "bulk"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"data\": [\n    {\n      \"key_0\": false,\n      \"key_1\": \"string\"\n    },\n    {\n      \"key_0\": 8604,\n      \"key_1\": 1714.799227599827,\n      \"key_2\": \"string\",\n      \"key_3\": 5554,\n      \"key_4\": 7450\n    }\n  ]\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"message\": \"string\",\n  \"error\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "23821225-f568-4331-9899-620bfa57740d",
+          "name": "List my expenses (spender)",
+          "request": {
+            "name": "List my expenses (spender)",
+            "description": {
+              "content": "Lists the signed-in spender's own expenses with filtering and pagination.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "spender",
+                "expenses"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "offset",
+                  "value": "0",
+                  "description": "(Required) Number of records to skip for pagination (mandatory)."
+                },
+                {
+                  "disabled": false,
+                  "key": "limit",
+                  "value": "100",
+                  "description": "(Required) Maximum number of records to return per page (mandatory)."
+                },
+                {
+                  "disabled": false,
+                  "key": "order",
+                  "value": "<string>",
+                  "description": "(Required) Sort order, e.g. `created_at.desc` or `updated_at.asc` (mandatory)."
+                }
+              ],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "8171aaa3-f490-436a-be0e-840b6e3f4a4c",
+              "name": "A page of the spender's expenses.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "spender",
+                    "expenses"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "offset",
+                      "value": "0"
+                    },
+                    {
+                      "key": "limit",
+                      "value": "100"
+                    },
+                    {
+                      "key": "order",
+                      "value": "created_at.desc"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"count\": 728,\n  \"offset\": 6615,\n  \"data\": [\n    {\n      \"id\": \"txABC123\",\n      \"org_id\": \"<string>\",\n      \"employee_id\": \"<string>\",\n      \"merchant\": \"<string>\",\n      \"purpose\": \"<string>\",\n      \"category_id\": \"<string>\",\n      \"project_id\": \"<string>\",\n      \"cost_center_id\": \"<string>\",\n      \"report_id\": \"<string>\",\n      \"amount\": \"<double>\",\n      \"currency\": \"USD\",\n      \"foreign_amount\": \"<double>\",\n      \"foreign_currency\": \"<string>\",\n      \"spent_at\": \"<dateTime>\",\n      \"is_reimbursable\": \"<boolean>\",\n      \"state\": \"<string>\",\n      \"source\": \"<string>\",\n      \"file_ids\": [\n        \"<string>\",\n        \"<string>\"\n      ],\n      \"created_at\": \"<dateTime>\",\n      \"updated_at\": \"<dateTime>\"\n    },\n    {\n      \"id\": \"txABC123\",\n      \"org_id\": \"<string>\",\n      \"employee_id\": \"<string>\",\n      \"merchant\": \"<string>\",\n      \"purpose\": \"<string>\",\n      \"category_id\": \"<string>\",\n      \"project_id\": \"<string>\",\n      \"cost_center_id\": \"<string>\",\n      \"report_id\": \"<string>\",\n      \"amount\": \"<double>\",\n      \"currency\": \"USD\",\n      \"foreign_amount\": \"<double>\",\n      \"foreign_currency\": \"<string>\",\n      \"spent_at\": \"<dateTime>\",\n      \"is_reimbursable\": \"<boolean>\",\n      \"state\": \"<string>\",\n      \"source\": \"<string>\",\n      \"file_ids\": [\n        \"<string>\",\n        \"<string>\"\n      ],\n      \"created_at\": \"<dateTime>\",\n      \"updated_at\": \"<dateTime>\"\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "a594522f-8f33-4b0b-ada1-858f5aa10d82",
+              "name": "Missing, invalid, or expired access token.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "spender",
+                    "expenses"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "offset",
+                      "value": "0"
+                    },
+                    {
+                      "key": "limit",
+                      "value": "100"
+                    },
+                    {
+                      "key": "order",
+                      "value": "created_at.desc"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"message\": \"string\",\n  \"error\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "18e9ed30-6c27-471b-bafd-a6f7d18c2b3d",
+          "name": "Create an expense (spender)",
+          "request": {
+            "name": "Create an expense (spender)",
+            "description": {
+              "content": "Creates an expense for the signed-in spender.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "spender",
+                "expenses"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"data\": {\n    \"id\": \"<string>\",\n    \"org_id\": \"<string>\",\n    \"employee_id\": \"<string>\",\n    \"merchant\": \"<string>\",\n    \"purpose\": \"<string>\",\n    \"category_id\": \"<string>\",\n    \"project_id\": \"<string>\",\n    \"cost_center_id\": \"<string>\",\n    \"report_id\": \"<string>\",\n    \"amount\": \"<double>\",\n    \"currency\": \"<string>\",\n    \"foreign_amount\": \"<double>\",\n    \"foreign_currency\": \"<string>\",\n    \"spent_at\": \"<dateTime>\",\n    \"is_reimbursable\": \"<boolean>\",\n    \"state\": \"<string>\",\n    \"source\": \"<string>\",\n    \"file_ids\": [\n      \"<string>\",\n      \"<string>\"\n    ],\n    \"created_at\": \"<dateTime>\",\n    \"updated_at\": \"<dateTime>\"\n  }\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "9f1cb15a-6dc8-42e4-a13f-38f52eeb5112",
+              "name": "The created expense.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "spender",
+                    "expenses"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"data\": {\n    \"id\": \"txABC123\",\n    \"org_id\": \"<string>\",\n    \"employee_id\": \"<string>\",\n    \"merchant\": \"<string>\",\n    \"purpose\": \"<string>\",\n    \"category_id\": \"<string>\",\n    \"project_id\": \"<string>\",\n    \"cost_center_id\": \"<string>\",\n    \"report_id\": \"<string>\",\n    \"amount\": \"<double>\",\n    \"currency\": \"USD\",\n    \"foreign_amount\": \"<double>\",\n    \"foreign_currency\": \"<string>\",\n    \"spent_at\": \"<dateTime>\",\n    \"is_reimbursable\": \"<boolean>\",\n    \"state\": \"<string>\",\n    \"source\": \"<string>\",\n    \"file_ids\": [\n      \"<string>\",\n      \"<string>\"\n    ],\n    \"created_at\": \"<dateTime>\",\n    \"updated_at\": \"<dateTime>\"\n  }\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"data\": {\n    \"id\": \"txABC123\",\n    \"org_id\": \"<string>\",\n    \"employee_id\": \"<string>\",\n    \"merchant\": \"<string>\",\n    \"purpose\": \"<string>\",\n    \"category_id\": \"<string>\",\n    \"project_id\": \"<string>\",\n    \"cost_center_id\": \"<string>\",\n    \"report_id\": \"<string>\",\n    \"amount\": \"<double>\",\n    \"currency\": \"USD\",\n    \"foreign_amount\": \"<double>\",\n    \"foreign_currency\": \"<string>\",\n    \"spent_at\": \"<dateTime>\",\n    \"is_reimbursable\": \"<boolean>\",\n    \"state\": \"<string>\",\n    \"source\": \"<string>\",\n    \"file_ids\": [\n      \"<string>\",\n      \"<string>\"\n    ],\n    \"created_at\": \"<dateTime>\",\n    \"updated_at\": \"<dateTime>\"\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "0a5f8110-4b3d-42c8-9ca3-35b26ee86a91",
+              "name": "Missing, invalid, or expired access token.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "spender",
+                    "expenses"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"data\": {\n    \"id\": \"txABC123\",\n    \"org_id\": \"<string>\",\n    \"employee_id\": \"<string>\",\n    \"merchant\": \"<string>\",\n    \"purpose\": \"<string>\",\n    \"category_id\": \"<string>\",\n    \"project_id\": \"<string>\",\n    \"cost_center_id\": \"<string>\",\n    \"report_id\": \"<string>\",\n    \"amount\": \"<double>\",\n    \"currency\": \"USD\",\n    \"foreign_amount\": \"<double>\",\n    \"foreign_currency\": \"<string>\",\n    \"spent_at\": \"<dateTime>\",\n    \"is_reimbursable\": \"<boolean>\",\n    \"state\": \"<string>\",\n    \"source\": \"<string>\",\n    \"file_ids\": [\n      \"<string>\",\n      \"<string>\"\n    ],\n    \"created_at\": \"<dateTime>\",\n    \"updated_at\": \"<dateTime>\"\n  }\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"message\": \"string\",\n  \"error\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "62afb27d-fe29-4067-bb57-1663da8d8e25",
+          "name": "Attach a receipt to an expense",
+          "request": {
+            "name": "Attach a receipt to an expense",
+            "description": {
+              "content": "Attaches an already-uploaded file (receipt) to an existing expense.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "spender",
+                "expenses",
+                "attach_receipt"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"data\": {\n    \"key_0\": false\n  }\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "b5dfd91a-f80f-46d4-a011-ebab74774e7e",
+              "name": "The updated expense.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "spender",
+                    "expenses",
+                    "attach_receipt"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"data\": {\n    \"key_0\": true\n  }\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"data\": {\n    \"id\": \"txABC123\",\n    \"org_id\": \"<string>\",\n    \"employee_id\": \"<string>\",\n    \"merchant\": \"<string>\",\n    \"purpose\": \"<string>\",\n    \"category_id\": \"<string>\",\n    \"project_id\": \"<string>\",\n    \"cost_center_id\": \"<string>\",\n    \"report_id\": \"<string>\",\n    \"amount\": \"<double>\",\n    \"currency\": \"USD\",\n    \"foreign_amount\": \"<double>\",\n    \"foreign_currency\": \"<string>\",\n    \"spent_at\": \"<dateTime>\",\n    \"is_reimbursable\": \"<boolean>\",\n    \"state\": \"<string>\",\n    \"source\": \"<string>\",\n    \"file_ids\": [\n      \"<string>\",\n      \"<string>\"\n    ],\n    \"created_at\": \"<dateTime>\",\n    \"updated_at\": \"<dateTime>\"\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "583dd74b-b534-4a9b-ab76-de6d53156f7a",
+              "name": "Missing, invalid, or expired access token.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "spender",
+                    "expenses",
+                    "attach_receipt"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"data\": {\n    \"key_0\": true\n  }\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"message\": \"string\",\n  \"error\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "2ecfcbca-a0d6-497d-b613-38112423bf34",
+          "name": "Create an expense from a receipt",
+          "request": {
+            "name": "Create an expense from a receipt",
+            "description": {
+              "content": "Creates a draft expense from an uploaded receipt file, letting Fyle extract merchant, amount, and date.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "spender",
+                "expenses",
+                "create_from_receipt"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"data\": {\n    \"key_0\": false\n  }\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "e8fd4a42-badd-4762-8b0b-5ddbcc9bac77",
+              "name": "The created expense.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "spender",
+                    "expenses",
+                    "create_from_receipt"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"data\": {\n    \"key_0\": true\n  }\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"data\": {\n    \"id\": \"txABC123\",\n    \"org_id\": \"<string>\",\n    \"employee_id\": \"<string>\",\n    \"merchant\": \"<string>\",\n    \"purpose\": \"<string>\",\n    \"category_id\": \"<string>\",\n    \"project_id\": \"<string>\",\n    \"cost_center_id\": \"<string>\",\n    \"report_id\": \"<string>\",\n    \"amount\": \"<double>\",\n    \"currency\": \"USD\",\n    \"foreign_amount\": \"<double>\",\n    \"foreign_currency\": \"<string>\",\n    \"spent_at\": \"<dateTime>\",\n    \"is_reimbursable\": \"<boolean>\",\n    \"state\": \"<string>\",\n    \"source\": \"<string>\",\n    \"file_ids\": [\n      \"<string>\",\n      \"<string>\"\n    ],\n    \"created_at\": \"<dateTime>\",\n    \"updated_at\": \"<dateTime>\"\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "bb42e29c-538a-44f5-8b74-77783e213863",
+              "name": "Missing, invalid, or expired access token.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "spender",
+                    "expenses",
+                    "create_from_receipt"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"data\": {\n    \"key_0\": true\n  }\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"message\": \"string\",\n  \"error\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "type": "string",
+      "value": "https://api.fylehq.com/platform/v1",
+      "key": "baseUrl"
+    }
+  ],
+  "auth": {
+    "type": "bearer",
+    "bearer": [
+      {
+        "key": "token",
+        "value": "{{bearerToken}}"
+      }
+    ]
+  },
+  "info": {
+    "_postman_id": "42637f90-8a2c-4ff2-a903-fb8867e94973",
+    "name": "Fyle Platform Advances Expenses API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "The Fyle Platform API (Fyle is now Sage Expense Management) exposes the objects behind Fyle's spend and expense management product - expenses, expense reports, advances, categories, projects, cost centers, employees, merchants, corporate cards and their real-time transactions, files/receipts, and webhook subscriptions - as role-scoped REST resources. Every path is served under a role segment (admin, spender, approver, or common); this document models the admin, spender, and common surfaces most commonly used for accounting/HRMS integration.\n\nAuthentication is OAuth 2.0 using the refresh-token grant: exchange a long-lived refresh token (with client_id and client_secret) at the token endpoint for a short-lived Bearer access token, then send it as `Authorization: Bearer <access_token>`.\n\nList endpoints follow a PostgREST-style convention: `offset`, `limit`, and `order` query parameters are mandatory, and any response field can be filtered with operators like `id=eq.<uuid>` or `updated_at=gte.<timestamp>`. A single resource is fetched by filtering on its id.\n\nEndpoint paths and HTTP verbs in this document are grounded in Fyle's open-source Python Platform SDK (github.com/fylein/fyle-platform-sdk-py). Request and response object field shapes are modeled representatively - consult the live Stoplight reference at docs.fylehq.com for exhaustive schemas.\n\nContact Support:\n Name: Fyle (Sage Expense Management)",
+      "type": "text/plain"
+    }
+  }
+}

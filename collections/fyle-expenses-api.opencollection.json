@@ -1,0 +1,173 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Fyle Platform Advances Expenses API",
+    "version": "1.0"
+  },
+  "request": {
+    "auth": {
+      "type": "bearer",
+      "token": "{{bearerToken}}"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Expenses",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "List expenses (admin)",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.fylehq.com/platform/v1/admin/expenses",
+            "params": [
+              {
+                "name": "offset",
+                "value": "",
+                "type": "query",
+                "description": "Number of records to skip for pagination (mandatory)."
+              },
+              {
+                "name": "limit",
+                "value": "",
+                "type": "query",
+                "description": "Maximum number of records to return per page (mandatory)."
+              },
+              {
+                "name": "order",
+                "value": "",
+                "type": "query",
+                "description": "Sort order, e.g. `created_at.desc` or `updated_at.asc` (mandatory)."
+              },
+              {
+                "name": "id",
+                "value": "",
+                "type": "query",
+                "description": "Filter by expense id, e.g. `eq.txXXXX` or `in.(txA,txB)`."
+              },
+              {
+                "name": "updated_at",
+                "value": "",
+                "type": "query",
+                "description": "Filter by last-updated timestamp, e.g. `gte.2026-01-01T00:00:00.000Z`."
+              }
+            ]
+          },
+          "docs": "Lists expenses submitted by any employee in the current organization. Supports rich PostgREST-style filtering on any response field and mandatory offset/limit/order pagination."
+        },
+        {
+          "info": {
+            "name": "Create or update an expense (admin)",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.fylehq.com/platform/v1/admin/expenses",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Creates a new expense or updates an existing one (upsert) in the organization."
+        },
+        {
+          "info": {
+            "name": "Bulk update accounting export summary",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.fylehq.com/platform/v1/admin/expenses/accounting_export_summary/bulk",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Bulk-updates the accounting export summary on many expenses (used to sync export status back from an accounting system)."
+        },
+        {
+          "info": {
+            "name": "List my expenses (spender)",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.fylehq.com/platform/v1/spender/expenses",
+            "params": [
+              {
+                "name": "offset",
+                "value": "",
+                "type": "query",
+                "description": "Number of records to skip for pagination (mandatory)."
+              },
+              {
+                "name": "limit",
+                "value": "",
+                "type": "query",
+                "description": "Maximum number of records to return per page (mandatory)."
+              },
+              {
+                "name": "order",
+                "value": "",
+                "type": "query",
+                "description": "Sort order, e.g. `created_at.desc` or `updated_at.asc` (mandatory)."
+              }
+            ]
+          },
+          "docs": "Lists the signed-in spender's own expenses with filtering and pagination."
+        },
+        {
+          "info": {
+            "name": "Create an expense (spender)",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.fylehq.com/platform/v1/spender/expenses",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Creates an expense for the signed-in spender."
+        },
+        {
+          "info": {
+            "name": "Attach a receipt to an expense",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.fylehq.com/platform/v1/spender/expenses/attach_receipt",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Attaches an already-uploaded file (receipt) to an existing expense."
+        },
+        {
+          "info": {
+            "name": "Create an expense from a receipt",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.fylehq.com/platform/v1/spender/expenses/create_from_receipt",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Creates a draft expense from an uploaded receipt file, letting Fyle extract merchant, amount, and date."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}
