@@ -152,6 +152,8 @@ apis:
   humanURL: https://docs.fylehq.com/docs/fyle-platform-docs/1381169eb4baa-list-expenses
   baseURL: https://api.fylehq.com/platform/v1/admin
   tags:
+  - File
+  tags_raw:
   - Files
   properties:
   - type: OpenAPI
@@ -188,6 +190,8 @@ apis:
   humanURL: https://docs.fylehq.com/docs/fyle-platform-docs/1381169eb4baa-list-expenses
   baseURL: https://api.fylehq.com/platform/v1/admin
   tags:
+  - Project
+  tags_raw:
   - Projects
   properties:
   - type: OpenAPI
@@ -224,6 +228,8 @@ apis:
   humanURL: https://docs.fylehq.com/docs/fyle-platform-docs/1381169eb4baa-list-expenses
   baseURL: https://api.fylehq.com/platform/v1/admin
   tags:
+  - Webhook
+  tags_raw:
   - Webhooks
   properties:
   - type: OpenAPI
