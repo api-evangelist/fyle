@@ -1,17 +1,7 @@
 {
   "provider": "fyle",
   "sources": [
-    "fyle-advances-api-openapi.yml",
-    "fyle-categories-api-openapi.yml",
-    "fyle-corporate-cards-api-openapi.yml",
-    "fyle-cost-centers-api-openapi.yml",
-    "fyle-employees-api-openapi.yml",
-    "fyle-expenses-api-openapi.yml",
-    "fyle-files-api-openapi.yml",
-    "fyle-merchants-api-openapi.yml",
-    "fyle-projects-api-openapi.yml",
-    "fyle-reports-api-openapi.yml",
-    "fyle-webhooks-api-openapi.yml"
+    "_original/fyle-openapi.yml"
   ],
   "outputs": [
     "fyle-advances-api-openapi.yml",
@@ -29,6 +19,22 @@
   "archived": [],
   "errors": [],
   "warnings": [],
-  "notes": [],
-  "skipped": []
+  "notes": [
+    "sourced from openapi/_original/ (1 archived document(s)); previously refined output at the top level was skipped rather than re-split",
+    "fyle-openapi.yml: upgraded openapi 3.0.3 -> OpenAPI 3.2.0",
+    "apis.yml register: already-registered"
+  ],
+  "skipped": [
+    "fyle-advances-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "fyle-categories-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "fyle-corporate-cards-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "fyle-cost-centers-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "fyle-employees-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "fyle-expenses-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "fyle-files-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "fyle-merchants-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "fyle-projects-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "fyle-reports-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "fyle-webhooks-api-openapi.yml: previously refined output, superseded by openapi/_original/"
+  ]
 }
