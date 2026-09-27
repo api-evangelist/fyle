@@ -180,6 +180,35 @@ paths:
           $ref: '#/components/responses/Unauthorized'
 components:
   schemas:
+    Error:
+      type: object
+      properties:
+        message:
+          type: string
+        error:
+          type: string
+    ExpenseListResponse:
+      type: object
+      properties:
+        count:
+          type: integer
+        offset:
+          type: integer
+        data:
+          type: array
+          items:
+            $ref: '#/components/schemas/Expense'
+    BulkDataRequest:
+      type: object
+      description: Generic bulk envelope; Fyle wraps a list of resources under `data`.
+      required:
+      - data
+      properties:
+        data:
+          type: array
+          items:
+            type: object
+            additionalProperties: true
     DataObjectRequest:
       type: object
       description: Generic upsert envelope; Fyle wraps the resource under a `data` object.
@@ -189,20 +218,6 @@ components:
         data:
           type: object
           additionalProperties: true
-    Error:
-      type: object
-      properties:
-        message:
-          type: string
-        error:
-          type: string
-    ExpenseUpsertRequest:
-      type: object
-      required:
-      - data
-      properties:
-        data:
-          $ref: '#/components/schemas/Expense'
     Expense:
       type: object
       properties:
@@ -258,33 +273,18 @@ components:
         updated_at:
           type: string
           format: date-time
+    ExpenseUpsertRequest:
+      type: object
+      required:
+      - data
+      properties:
+        data:
+          $ref: '#/components/schemas/Expense'
     ExpenseResponse:
       type: object
       properties:
         data:
           $ref: '#/components/schemas/Expense'
-    BulkDataRequest:
-      type: object
-      description: Generic bulk envelope; Fyle wraps a list of resources under `data`.
-      required:
-      - data
-      properties:
-        data:
-          type: array
-          items:
-            type: object
-            additionalProperties: true
-    ExpenseListResponse:
-      type: object
-      properties:
-        count:
-          type: integer
-        offset:
-          type: integer
-        data:
-          type: array
-          items:
-            $ref: '#/components/schemas/Expense'
   responses:
     Unauthorized:
       description: Missing, invalid, or expired access token.
@@ -299,14 +299,6 @@ components:
           schema:
             $ref: '#/components/schemas/Error'
   parameters:
-    Order:
-      name: order
-      in: query
-      required: true
-      description: Sort order, e.g. `created_at.desc` or `updated_at.asc` (mandatory).
-      schema:
-        type: string
-        example: created_at.desc
     Limit:
       name: limit
       in: query
@@ -316,6 +308,14 @@ components:
         type: integer
         minimum: 1
         default: 100
+    Order:
+      name: order
+      in: query
+      required: true
+      description: Sort order, e.g. `created_at.desc` or `updated_at.asc` (mandatory).
+      schema:
+        type: string
+        example: created_at.desc
     Offset:
       name: offset
       in: query

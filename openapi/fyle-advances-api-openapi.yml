@@ -61,6 +61,13 @@ paths:
           $ref: '#/components/responses/Unauthorized'
 components:
   schemas:
+    Error:
+      type: object
+      properties:
+        message:
+          type: string
+        error:
+          type: string
     DataObjectRequest:
       type: object
       description: Generic upsert envelope; Fyle wraps the resource under a `data` object.
@@ -70,13 +77,6 @@ components:
         data:
           type: object
           additionalProperties: true
-    Error:
-      type: object
-      properties:
-        message:
-          type: string
-        error:
-          type: string
     GenericObjectResponse:
       type: object
       properties:
@@ -103,14 +103,6 @@ components:
           schema:
             $ref: '#/components/schemas/Error'
   parameters:
-    Order:
-      name: order
-      in: query
-      required: true
-      description: Sort order, e.g. `created_at.desc` or `updated_at.asc` (mandatory).
-      schema:
-        type: string
-        example: created_at.desc
     Limit:
       name: limit
       in: query
@@ -120,6 +112,14 @@ components:
         type: integer
         minimum: 1
         default: 100
+    Order:
+      name: order
+      in: query
+      required: true
+      description: Sort order, e.g. `created_at.desc` or `updated_at.asc` (mandatory).
+      schema:
+        type: string
+        example: created_at.desc
     Offset:
       name: offset
       in: query

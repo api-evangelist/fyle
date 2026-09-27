@@ -99,14 +99,6 @@ components:
           schema:
             $ref: '#/components/schemas/Error'
   parameters:
-    Order:
-      name: order
-      in: query
-      required: true
-      description: Sort order, e.g. `created_at.desc` or `updated_at.asc` (mandatory).
-      schema:
-        type: string
-        example: created_at.desc
     Limit:
       name: limit
       in: query
@@ -116,6 +108,14 @@ components:
         type: integer
         minimum: 1
         default: 100
+    Order:
+      name: order
+      in: query
+      required: true
+      description: Sort order, e.g. `created_at.desc` or `updated_at.asc` (mandatory).
+      schema:
+        type: string
+        example: created_at.desc
     Offset:
       name: offset
       in: query

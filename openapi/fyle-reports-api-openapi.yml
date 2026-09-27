@@ -168,6 +168,29 @@ paths:
           $ref: '#/components/responses/Unauthorized'
 components:
   schemas:
+    Error:
+      type: object
+      properties:
+        message:
+          type: string
+        error:
+          type: string
+    BulkDataRequest:
+      type: object
+      description: Generic bulk envelope; Fyle wraps a list of resources under `data`.
+      required:
+      - data
+      properties:
+        data:
+          type: array
+          items:
+            type: object
+            additionalProperties: true
+    ReportResponse:
+      type: object
+      properties:
+        data:
+          $ref: '#/components/schemas/Report'
     DataObjectRequest:
       type: object
       description: Generic upsert envelope; Fyle wraps the resource under a `data` object.
@@ -177,13 +200,17 @@ components:
         data:
           type: object
           additionalProperties: true
-    Error:
+    ReportListResponse:
       type: object
       properties:
-        message:
-          type: string
-        error:
-          type: string
+        count:
+          type: integer
+        offset:
+          type: integer
+        data:
+          type: array
+          items:
+            $ref: '#/components/schemas/Report'
     Report:
       type: object
       properties:
@@ -214,33 +241,6 @@ components:
         updated_at:
           type: string
           format: date-time
-    ReportResponse:
-      type: object
-      properties:
-        data:
-          $ref: '#/components/schemas/Report'
-    BulkDataRequest:
-      type: object
-      description: Generic bulk envelope; Fyle wraps a list of resources under `data`.
-      required:
-      - data
-      properties:
-        data:
-          type: array
-          items:
-            type: object
-            additionalProperties: true
-    ReportListResponse:
-      type: object
-      properties:
-        count:
-          type: integer
-        offset:
-          type: integer
-        data:
-          type: array
-          items:
-            $ref: '#/components/schemas/Report'
   responses:
     Unauthorized:
       description: Missing, invalid, or expired access token.
@@ -249,14 +249,6 @@ components:
           schema:
             $ref: '#/components/schemas/Error'
   parameters:
-    Order:
-      name: order
-      in: query
-      required: true
-      description: Sort order, e.g. `created_at.desc` or `updated_at.asc` (mandatory).
-      schema:
-        type: string
-        example: created_at.desc
     Limit:
       name: limit
       in: query
@@ -266,6 +258,14 @@ components:
         type: integer
         minimum: 1
         default: 100
+    Order:
+      name: order
+      in: query
+      required: true
+      description: Sort order, e.g. `created_at.desc` or `updated_at.asc` (mandatory).
+      schema:
+        type: string
+        example: created_at.desc
     Offset:
       name: offset
       in: query
