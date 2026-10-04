@@ -82,41 +82,28 @@ paths:
         '401':
           $ref: '#/components/responses/Unauthorized'
 components:
-  responses:
-    Unauthorized:
-      description: Missing, invalid, or expired access token.
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/Error'
-  parameters:
-    Offset:
-      name: offset
-      in: query
-      required: true
-      description: Number of records to skip for pagination (mandatory).
-      schema:
-        type: integer
-        minimum: 0
-        default: 0
-    Order:
-      name: order
-      in: query
-      required: true
-      description: Sort order, e.g. `created_at.desc` or `updated_at.asc` (mandatory).
-      schema:
-        type: string
-        example: created_at.desc
-    Limit:
-      name: limit
-      in: query
-      required: true
-      description: Maximum number of records to return per page (mandatory).
-      schema:
-        type: integer
-        minimum: 1
-        default: 100
   schemas:
+    FileCreateRequest:
+      type: object
+      required:
+      - data
+      properties:
+        data:
+          type: object
+          properties:
+            name:
+              type: string
+            type:
+              type: string
+              description: MIME/content type of the file, e.g. image/png or application/pdf.
+          additionalProperties: true
+    Error:
+      type: object
+      properties:
+        message:
+          type: string
+        error:
+          type: string
     BulkDataRequest:
       type: object
       description: Generic bulk envelope; Fyle wraps a list of resources under `data`.
@@ -140,27 +127,6 @@ components:
           items:
             type: object
             additionalProperties: true
-    Error:
-      type: object
-      properties:
-        message:
-          type: string
-        error:
-          type: string
-    FileCreateRequest:
-      type: object
-      required:
-      - data
-      properties:
-        data:
-          type: object
-          properties:
-            name:
-              type: string
-            type:
-              type: string
-              description: MIME/content type of the file, e.g. image/png or application/pdf.
-          additionalProperties: true
     FileResponse:
       type: object
       properties:
@@ -180,6 +146,40 @@ components:
               type: string
               format: uri
           additionalProperties: true
+  parameters:
+    Limit:
+      name: limit
+      in: query
+      required: true
+      description: Maximum number of records to return per page (mandatory).
+      schema:
+        type: integer
+        minimum: 1
+        default: 100
+    Offset:
+      name: offset
+      in: query
+      required: true
+      description: Number of records to skip for pagination (mandatory).
+      schema:
+        type: integer
+        minimum: 0
+        default: 0
+    Order:
+      name: order
+      in: query
+      required: true
+      description: Sort order, e.g. `created_at.desc` or `updated_at.asc` (mandatory).
+      schema:
+        type: string
+        example: created_at.desc
+  responses:
+    Unauthorized:
+      description: Missing, invalid, or expired access token.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
   securitySchemes:
     bearerAuth:
       type: http

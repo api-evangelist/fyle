@@ -179,36 +179,32 @@ paths:
         '401':
           $ref: '#/components/responses/Unauthorized'
 components:
+  responses:
+    BadRequest:
+      description: One or more parameters are invalid.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+    Unauthorized:
+      description: Missing, invalid, or expired access token.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
   schemas:
-    ExpenseUpsertRequest:
+    ExpenseResponse:
       type: object
-      required:
-      - data
       properties:
         data:
           $ref: '#/components/schemas/Expense'
-    BulkDataRequest:
-      type: object
-      description: Generic bulk envelope; Fyle wraps a list of resources under `data`.
-      required:
-      - data
-      properties:
-        data:
-          type: array
-          items:
-            type: object
-            additionalProperties: true
-    ExpenseListResponse:
+    Error:
       type: object
       properties:
-        count:
-          type: integer
-        offset:
-          type: integer
-        data:
-          type: array
-          items:
-            $ref: '#/components/schemas/Expense'
+        message:
+          type: string
+        error:
+          type: string
     Expense:
       type: object
       properties:
@@ -264,13 +260,17 @@ components:
         updated_at:
           type: string
           format: date-time
-    Error:
+    BulkDataRequest:
       type: object
+      description: Generic bulk envelope; Fyle wraps a list of resources under `data`.
+      required:
+      - data
       properties:
-        message:
-          type: string
-        error:
-          type: string
+        data:
+          type: array
+          items:
+            type: object
+            additionalProperties: true
     DataObjectRequest:
       type: object
       description: Generic upsert envelope; Fyle wraps the resource under a `data` object.
@@ -280,11 +280,24 @@ components:
         data:
           type: object
           additionalProperties: true
-    ExpenseResponse:
+    ExpenseUpsertRequest:
       type: object
+      required:
+      - data
       properties:
         data:
           $ref: '#/components/schemas/Expense'
+    ExpenseListResponse:
+      type: object
+      properties:
+        count:
+          type: integer
+        offset:
+          type: integer
+        data:
+          type: array
+          items:
+            $ref: '#/components/schemas/Expense'
   parameters:
     Limit:
       name: limit
@@ -312,19 +325,6 @@ components:
       schema:
         type: string
         example: created_at.desc
-  responses:
-    Unauthorized:
-      description: Missing, invalid, or expired access token.
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/Error'
-    BadRequest:
-      description: One or more parameters are invalid.
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/Error'
   securitySchemes:
     bearerAuth:
       type: http
