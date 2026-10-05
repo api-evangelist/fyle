@@ -1,0 +1,36 @@
+slug: fyle
+provider: Fyle
+generated_by: planning/capability-mapping/scripts/classify_capabilities.py
+model: claude-opus-5
+frame:
+- Software & Technology
+min_confidence: 0.7
+capability_model:
+  source: https://github.com/vincentmakes/turbo-ea-capabilities
+  license: CC-BY-4.0
+  attribution: Turbo EA Capabilities by Vincent Verdet — Turbo EA, https://github.com/vincentmakes/turbo-ea-capabilities,
+    CC BY 4.0
+  notice: NOTICE
+edge_count: 2
+edges:
+- tag: Expenses
+  spec_file: fyle-expenses-api-openapi.yml
+  capability_id: BC-200
+  capability_id_l1: BC-200
+  capability_name: Financial Management
+  confidence: 0.75
+  evidence: POST /spender/expenses/create_from_receipt  createExpenseFromReceipt  Create an expense from
+    a receipt
+  reason: Employee expense capture, receipt attachment and accounting export are clearly financial accounting
+    operations (T&E expense processing and reimbursement). L1 Financial Management is well grounded; no
+    candidate L2 cleanly covers employee expense management, so L2 is null.
+- tag: Reports
+  spec_file: fyle-reports-api-openapi.yml
+  capability_id: BC-200
+  capability_id_l1: BC-200
+  capability_name: Financial Management
+  confidence: 0.7
+  evidence: POST /spender/reports/submit  submitReport  Submit a report; POST /admin/reports/mark_paid/bulk  bulkMarkReportsPaid
+  reason: Expense report creation, submission and marking paid is employee expense reimbursement — an
+    accounting/payables-adjacent process. Mapped at Financial Management L1 with moderate confidence;
+    the sub-capability (AP vs HR ops) is ambiguous so no L2.
