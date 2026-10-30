@@ -1,4 +1,4 @@
-# Fyle (fyle)
+# Fyle
 
 <!-- API-EVANGELIST-PROVENANCE:BEGIN -->
 > ### About this repository
@@ -64,259 +64,138 @@
 > Full detail: **[Where this data comes from](https://apievangelist.com/about/where-our-data-comes-from)**
 <!-- API-EVANGELIST-PROVENANCE:END -->
 
-Fyle (now Sage Expense Management) is a spend and expense management platform known for real-time corporate card feeds that text employees for a receipt the moment a card is swiped, then auto-code the expense. The Fyle Platform APIs expose the same objects the product runs on - expenses, expense reports, advances, categories, projects, cost centers, employees, merchants, corporate cards and their transactions, files/receipts, and webhook subscriptions - as role-scoped REST resources (admin, spender, approver, common) under `https://api.fylehq.com/platform/v1`. Access is authenticated with OAuth 2.0 (refresh-token grant issuing short-lived Bearer access tokens), and list endpoints use PostgREST-style filtering with mandatory `offset`, `limit`, and `order` pagination.
+Fyle (now Sage Expense Management) is a spend and expense management platform known for real-time corporate card feeds that text employees for a receipt the moment a card is swiped, then auto-code the expense. The Fyle Platform APIs expose the same objects the product runs on - expenses, expense reports, advances, categories, projects, cost centers, employees, merchants, corporate cards and their transactions, files/receipts, and webhook subscriptions - as role-scoped REST resources (admin, spender, approver, common) under https://api.fylehq.com/platform/v1. Access is authenticated with OAuth 2.0 (refresh-token grant issuing short-lived Bearer access tokens), and list endpoints use PostgREST-style filtering with mandatory offset, limit, and order pagination.
 
-**APIs.json:** [https://raw.githubusercontent.com/api-evangelist/fyle/refs/heads/main/apis.yml](https://raw.githubusercontent.com/api-evangelist/fyle/refs/heads/main/apis.yml)
+**Areas:** Expense Management · Spend Management · Corporate Cards · Fintech · Accounting · Receipts
 
-## Tags
+## Fyle on APIs.io
 
-- Expense Management
-- Spend Management
-- Corporate Cards
-- Fintech
-- Accounting
-- Receipts
+Everything profiled for Fyle is published on APIs.io rather than in this repository. Start at the provider page — **[apis.io/providers/fyle/](https://apis.io/providers/fyle/)** — or go straight to one of the APIs or properties below.
 
-## Timestamps
+### APIs (11)
 
-- **Created:** 2026-07-03
-- **Modified:** 2026-07-03
+- [Fyle Advances API](https://apis.io/apis/fyle/fyle-advances-api/) — Advance requests raised by employees.
+- [Fyle Categories API](https://apis.io/apis/fyle/fyle-categories-api/) — Expense categories, usually synced from a chart of accounts.
+- [Fyle Corporate Cards API](https://apis.io/apis/fyle/fyle-corporate-cards-api/) — Enrolled corporate cards and their real-time transactions.
+- [Fyle Cost Centers API](https://apis.io/apis/fyle/fyle-cost-centers-api/) — Cost centers mapping spend to departments or business units.
+- [Fyle Employees API](https://apis.io/apis/fyle/fyle-employees-api/) — Employee/user records, usually synced from an HRMS.
+- [Fyle Expenses API](https://apis.io/apis/fyle/fyle-expenses-api/) — Expenses across the organization (admin) or for the signed-in spender.
+- [Fyle Files API](https://apis.io/apis/fyle/fyle-files-api/) — File records and pre-signed URLs for receipts and attachments.
+- [Fyle Merchants API](https://apis.io/apis/fyle/fyle-merchants-api/) — Merchant/vendor values available to spenders.
+- [Fyle Projects API](https://apis.io/apis/fyle/fyle-projects-api/) — Projects used to tag and allocate spend.
+- [Fyle Reports API](https://apis.io/apis/fyle/fyle-reports-api/) — Expense reports submitted for approval and reimbursement.
+- [Fyle Webhooks API](https://apis.io/apis/fyle/fyle-webhooks-api/) — Webhook subscriptions and scheduled callbacks.
 
-## APIs
+### Published properties
 
-### Fyle Expenses API
+Each property below is a page on APIs.io carrying the machine-readable artifact and what it says.
 
-List, filter, retrieve, and upsert expenses across the organization. Admins read every employee's expenses (with rich filtering and pagination); spenders create their own expenses, create an expense from a receipt, and attach receipts. Base path uses the role segment - `/admin/expenses` or `/spender/expenses`.
+#### Agentic access (1)
 
-- **Human URL:** [https://docs.fylehq.com/docs/fyle-platform-docs/1381169eb4baa-list-expenses](https://docs.fylehq.com/docs/fyle-platform-docs/1381169eb4baa-list-expenses)
-- **Base URL:** `https://api.fylehq.com/platform/v1/admin`
+Which operations an agent can call, which act, and which need a human in the loop.
 
-#### Tags
+- [Fyle Agentic Access](https://apis.io/agentic-access/fyle/fyle-agentic-access/)
 
-- Expenses
-- Receipts
-- Spend
+#### Collections (12)
 
-#### Properties
+Postman and Open Collection request collections.
 
-- [Documentation](https://docs.fylehq.com/docs/fyle-platform-docs/d72728ede9b0e-admin-ap-is)
-- [API Reference](https://docs.fylehq.com/docs/fyle-platform-docs/1381169eb4baa-list-expenses)
-- [OpenAPI](openapi/fyle-openapi.yml) — [OpenAPI Specification](https://spec.openapis.org/oas/latest.html)
-- [Postman Collection](collections/fyle.postman_collection.json) — [Postman Collection 2.1](https://schema.getpostman.com/json/collection/v2.1.0/collection.json)
-- [Open Collection](collections/fyle.opencollection.json) — [Open Collection 1.0](https://schema.opencollection.com/opencollection/v1.0.0.json)
+- [Fyle Platform API](https://apis.io/collections/fyle/open-fyle/)
+- [Fyle Platform Advances API](https://apis.io/collections/fyle/open-fyle-advances-api/)
+- [Fyle Platform Advances Categories API](https://apis.io/collections/fyle/open-fyle-categories-api/)
+- [Fyle Platform Advances Corporate Cards API](https://apis.io/collections/fyle/open-fyle-corporate-cards-api/)
+- [Fyle Platform Advances Cost Centers API](https://apis.io/collections/fyle/open-fyle-cost-centers-api/)
+- [Fyle Platform Advances Employees API](https://apis.io/collections/fyle/open-fyle-employees-api/)
+- [Fyle Platform Advances Expenses API](https://apis.io/collections/fyle/open-fyle-expenses-api/)
+- [Fyle Platform Advances Files API](https://apis.io/collections/fyle/open-fyle-files-api/)
+- [Fyle Platform Advances Merchants API](https://apis.io/collections/fyle/open-fyle-merchants-api/)
+- [Fyle Platform Advances Projects API](https://apis.io/collections/fyle/open-fyle-projects-api/)
+- [Fyle Platform Advances Reports API](https://apis.io/collections/fyle/open-fyle-reports-api/)
+- [Fyle Platform Advances Webhooks API](https://apis.io/collections/fyle/open-fyle-webhooks-api/)
 
-### Fyle Reports API
+#### Security (2)
 
-Manage expense reports - the containers employees submit for approval and reimbursement. Spenders create reports, add expenses to a report, and submit them; admins bulk mark reports as paid once reimbursed.
+Authentication, trust centre, and vulnerability disclosure.
 
-- **Human URL:** [https://docs.fylehq.com/docs/fyle-platform-docs/d72728ede9b0e-admin-ap-is](https://docs.fylehq.com/docs/fyle-platform-docs/d72728ede9b0e-admin-ap-is)
-- **Base URL:** `https://api.fylehq.com/platform/v1/admin`
+- [Fyle Authentication](https://apis.io/security/fyle/fyle-authentication/)
+- [Fyle Domain Security](https://apis.io/security/fyle/fyle-domain-security/)
 
-#### Tags
+#### Plans and pricing (1)
 
-- Reports
-- Approvals
-- Reimbursement
+Published plans, tiers and prices.
 
-#### Properties
+- [Fyle Plans Pricing](https://apis.io/plans/fyle/fyle-plans-pricing/)
 
-- [Documentation](https://docs.fylehq.com/docs/fyle-platform-docs/d72728ede9b0e-admin-ap-is)
-- [API Reference](https://docs.fylehq.com/docs/fyle-platform-docs/8f79171ef2cb5-spender-ap-is)
-- [OpenAPI](openapi/fyle-openapi.yml) — [OpenAPI Specification](https://spec.openapis.org/oas/latest.html)
-- [Postman Collection](collections/fyle.postman_collection.json) — [Postman Collection 2.1](https://schema.getpostman.com/json/collection/v2.1.0/collection.json)
-- [Open Collection](collections/fyle.opencollection.json) — [Open Collection 1.0](https://schema.opencollection.com/opencollection/v1.0.0.json)
+#### Rate limits (1)
 
-### Fyle Advances API
+Published request limits.
 
-List, retrieve, and upsert advance requests - the money employees ask for ahead of spending. Exposed under `/admin/advance_requests` for programmatic reconciliation with payroll and accounting systems.
+- [Fyle Rate Limits](https://apis.io/rate-limits/fyle/fyle-rate-limits/)
 
-- **Human URL:** [https://docs.fylehq.com/docs/fyle-platform-docs/d72728ede9b0e-admin-ap-is](https://docs.fylehq.com/docs/fyle-platform-docs/d72728ede9b0e-admin-ap-is)
-- **Base URL:** `https://api.fylehq.com/platform/v1/admin`
+#### FinOps (1)
 
-#### Tags
+What the API costs to run, by operation.
 
-- Advances
-- Advance Requests
-- Reimbursement
+- [Fyle Finops](https://apis.io/finops/fyle/fyle-finops/)
 
-#### Properties
+## Where to find this API
 
-- [Documentation](https://docs.fylehq.com/docs/fyle-platform-docs/d72728ede9b0e-admin-ap-is)
-- [OpenAPI](openapi/fyle-openapi.yml) — [OpenAPI Specification](https://spec.openapis.org/oas/latest.html)
-- [Postman Collection](collections/fyle.postman_collection.json) — [Postman Collection 2.1](https://schema.getpostman.com/json/collection/v2.1.0/collection.json)
-- [Open Collection](collections/fyle.opencollection.json) — [Open Collection 1.0](https://schema.opencollection.com/opencollection/v1.0.0.json)
+Links to the company's own pages. This repository publishes no copy of their specifications — the canonical document is theirs and lives at the URLs below.
 
-### Fyle Categories API
-
-List, upsert, and bulk-upsert expense categories, typically synced from an accounting system's chart of accounts so expenses code correctly. Available at `/admin/categories` with a bulk endpoint for large imports.
-
-- **Human URL:** [https://docs.fylehq.com/docs/fyle-platform-docs/d72728ede9b0e-admin-ap-is](https://docs.fylehq.com/docs/fyle-platform-docs/d72728ede9b0e-admin-ap-is)
-- **Base URL:** `https://api.fylehq.com/platform/v1/admin`
-
-#### Tags
-
-- Categories
-- Chart of Accounts
-- Coding
-
-#### Properties
-
-- [Documentation](https://docs.fylehq.com/docs/fyle-platform-docs/d72728ede9b0e-admin-ap-is)
-- [OpenAPI](openapi/fyle-openapi.yml) — [OpenAPI Specification](https://spec.openapis.org/oas/latest.html)
-- [Postman Collection](collections/fyle.postman_collection.json) — [Postman Collection 2.1](https://schema.getpostman.com/json/collection/v2.1.0/collection.json)
-- [Open Collection](collections/fyle.opencollection.json) — [Open Collection 1.0](https://schema.opencollection.com/opencollection/v1.0.0.json)
-
-### Fyle Projects API
-
-List, upsert, and bulk-upsert projects used to tag and allocate expenses to client work or internal initiatives. Served at `/admin/projects` with a bulk endpoint for syncing from external systems.
-
-- **Human URL:** [https://docs.fylehq.com/docs/fyle-platform-docs/d72728ede9b0e-admin-ap-is](https://docs.fylehq.com/docs/fyle-platform-docs/d72728ede9b0e-admin-ap-is)
-- **Base URL:** `https://api.fylehq.com/platform/v1/admin`
-
-#### Tags
-
-- Projects
-- Cost Allocation
-- Coding
-
-#### Properties
-
-- [Documentation](https://docs.fylehq.com/docs/fyle-platform-docs/d72728ede9b0e-admin-ap-is)
-- [OpenAPI](openapi/fyle-openapi.yml) — [OpenAPI Specification](https://spec.openapis.org/oas/latest.html)
-- [Postman Collection](collections/fyle.postman_collection.json) — [Postman Collection 2.1](https://schema.getpostman.com/json/collection/v2.1.0/collection.json)
-- [Open Collection](collections/fyle.opencollection.json) — [Open Collection 1.0](https://schema.opencollection.com/opencollection/v1.0.0.json)
-
-### Fyle Cost Centers API
-
-List, upsert, and bulk-upsert cost centers that map spend to departments, teams, or business units for reporting and accounting export. Available at `/admin/cost_centers`.
-
-- **Human URL:** [https://docs.fylehq.com/docs/fyle-platform-docs/d72728ede9b0e-admin-ap-is](https://docs.fylehq.com/docs/fyle-platform-docs/d72728ede9b0e-admin-ap-is)
-- **Base URL:** `https://api.fylehq.com/platform/v1/admin`
-
-#### Tags
-
-- Cost Centers
-- Cost Allocation
-- Coding
-
-#### Properties
-
-- [Documentation](https://docs.fylehq.com/docs/fyle-platform-docs/d72728ede9b0e-admin-ap-is)
-- [OpenAPI](openapi/fyle-openapi.yml) — [OpenAPI Specification](https://spec.openapis.org/oas/latest.html)
-- [Postman Collection](collections/fyle.postman_collection.json) — [Postman Collection 2.1](https://schema.getpostman.com/json/collection/v2.1.0/collection.json)
-- [Open Collection](collections/fyle.opencollection.json) — [Open Collection 1.0](https://schema.opencollection.com/opencollection/v1.0.0.json)
-
-### Fyle Employees API
-
-List, retrieve, upsert, and bulk-invite employees - typically synced from an HRMS so approval hierarchies, departments, and reimbursement details stay current. Available at `/admin/employees`.
-
-- **Human URL:** [https://docs.fylehq.com/docs/fyle-platform-docs/d72728ede9b0e-admin-ap-is](https://docs.fylehq.com/docs/fyle-platform-docs/d72728ede9b0e-admin-ap-is)
-- **Base URL:** `https://api.fylehq.com/platform/v1/admin`
-
-#### Tags
-
-- Employees
-- HRMS
-- Users
-
-#### Properties
-
-- [Documentation](https://docs.fylehq.com/docs/fyle-platform-docs/d72728ede9b0e-admin-ap-is)
-- [OpenAPI](openapi/fyle-openapi.yml) — [OpenAPI Specification](https://spec.openapis.org/oas/latest.html)
-- [Postman Collection](collections/fyle.postman_collection.json) — [Postman Collection 2.1](https://schema.getpostman.com/json/collection/v2.1.0/collection.json)
-- [Open Collection](collections/fyle.opencollection.json) — [Open Collection 1.0](https://schema.opencollection.com/opencollection/v1.0.0.json)
-
-### Fyle Merchants API
-
-List the merchant/vendor values available to a spender and bulk-add new merchants, keeping the merchant field consistent across expenses. Served at `/spender/merchants`.
-
-- **Human URL:** [https://docs.fylehq.com/docs/fyle-platform-docs/8f79171ef2cb5-spender-ap-is](https://docs.fylehq.com/docs/fyle-platform-docs/8f79171ef2cb5-spender-ap-is)
-- **Base URL:** `https://api.fylehq.com/platform/v1/spender`
-
-#### Tags
-
-- Merchants
-- Vendors
-- Spend
-
-#### Properties
-
-- [Documentation](https://docs.fylehq.com/docs/fyle-platform-docs/8f79171ef2cb5-spender-ap-is)
-- [OpenAPI](openapi/fyle-openapi.yml) — [OpenAPI Specification](https://spec.openapis.org/oas/latest.html)
-- [Postman Collection](collections/fyle.postman_collection.json) — [Postman Collection 2.1](https://schema.getpostman.com/json/collection/v2.1.0/collection.json)
-- [Open Collection](collections/fyle.opencollection.json) — [Open Collection 1.0](https://schema.opencollection.com/opencollection/v1.0.0.json)
-
-### Fyle Corporate Cards & Transactions API
-
-List enrolled corporate cards and read the real-time card transactions that flow in from Fyle's direct card feeds, then match them to expenses. Exposed at `/admin/corporate_cards` and `/admin/corporate_card_transactions` (cards are also listable under `/spender`).
-
-- **Human URL:** [https://docs.fylehq.com/docs/fyle-platform-docs/d72728ede9b0e-admin-ap-is](https://docs.fylehq.com/docs/fyle-platform-docs/d72728ede9b0e-admin-ap-is)
-- **Base URL:** `https://api.fylehq.com/platform/v1/admin`
-
-#### Tags
-
-- Corporate Cards
-- Card Transactions
-- Real-Time Feeds
-
-#### Properties
-
-- [Documentation](https://docs.fylehq.com/docs/fyle-platform-docs/d72728ede9b0e-admin-ap-is)
-- [OpenAPI](openapi/fyle-openapi.yml) — [OpenAPI Specification](https://spec.openapis.org/oas/latest.html)
-- [Postman Collection](collections/fyle.postman_collection.json) — [Postman Collection 2.1](https://schema.getpostman.com/json/collection/v2.1.0/collection.json)
-- [Open Collection](collections/fyle.opencollection.json) — [Open Collection 1.0](https://schema.opencollection.com/opencollection/v1.0.0.json)
-
-### Fyle Webhooks API
-
-Register and manage webhook subscriptions and scheduled callbacks so your application receives HTTP POSTs when expenses, reports, and other objects change - Fyle's outbound integration mechanism (server-to-endpoint HTTP, not WebSocket). Managed at `/admin/subscriptions` and `/admin/scheduled_callbacks`.
-
-- **Human URL:** [https://docs.fylehq.com/docs/fyle-platform-docs/d72728ede9b0e-admin-ap-is](https://docs.fylehq.com/docs/fyle-platform-docs/d72728ede9b0e-admin-ap-is)
-- **Base URL:** `https://api.fylehq.com/platform/v1/admin`
-
-#### Tags
-
-- Webhooks
-- Subscriptions
-- Callbacks
-
-#### Properties
-
-- [Documentation](https://docs.fylehq.com/docs/fyle-platform-docs/d72728ede9b0e-admin-ap-is)
-- [OpenAPI](openapi/fyle-openapi.yml) — [OpenAPI Specification](https://spec.openapis.org/oas/latest.html)
-- [Postman Collection](collections/fyle.postman_collection.json) — [Postman Collection 2.1](https://schema.getpostman.com/json/collection/v2.1.0/collection.json)
-- [Open Collection](collections/fyle.opencollection.json) — [Open Collection 1.0](https://schema.opencollection.com/opencollection/v1.0.0.json)
-
-### Fyle Files & Receipts API
-
-Create file records and generate pre-signed upload/download URLs for receipts and other attachments, then bulk-generate URLs for many files at once. Available at `/admin/files` (and `/spender/files`) with a `/files/generate_urls/bulk` helper.
-
-- **Human URL:** [https://docs.fylehq.com/docs/fyle-platform-docs/d72728ede9b0e-admin-ap-is](https://docs.fylehq.com/docs/fyle-platform-docs/d72728ede9b0e-admin-ap-is)
-- **Base URL:** `https://api.fylehq.com/platform/v1/admin`
-
-#### Tags
-
-- Files
-- Receipts
-- Attachments
-
-#### Properties
-
-- [Documentation](https://docs.fylehq.com/docs/fyle-platform-docs/d72728ede9b0e-admin-ap-is)
-- [OpenAPI](openapi/fyle-openapi.yml) — [OpenAPI Specification](https://spec.openapis.org/oas/latest.html)
-- [Postman Collection](collections/fyle.postman_collection.json) — [Postman Collection 2.1](https://schema.getpostman.com/json/collection/v2.1.0/collection.json)
-- [Open Collection](collections/fyle.opencollection.json) — [Open Collection 1.0](https://schema.opencollection.com/opencollection/v1.0.0.json)
-
-## Common Properties
-
-- [GitHub Organization](https://github.com/fylein)
-- [LinkedIn](https://www.linkedin.com/company/fyle)
 - [Website](https://www.fylehq.com)
 - [Documentation](https://docs.fylehq.com)
-- [Plans](plans/fyle-plans-pricing.yml)
-- [Rate Limits](rate-limits/fyle-rate-limits.yml)
-- [Fin Ops](finops/fyle-finops.yml)
+- [Blog](https://www.fylehq.com/blog)
+- [GitHub](https://github.com/fylein)
 
-## Maintainers
+## API Evangelist rating
 
-**FN:** Kin Lane
-**Email:** kin@apievangelist.com
+**Kin Score 29.2** — thin · rubric 0.24.0 · scored 2026-10-17
+
+| Facet | Score |
+|---|---|
+| Discoverability | 66.1 |
+| Contract quality | 48.5 |
+| Contract governance | 0.0 |
+| Operational transparency | 10.5 |
+| Developer ergonomics | 31.0 |
+| Access clarity | 7.9 |
+
+**Agent readiness 17.9** — agent-aware
+
+| Agent-readiness dimension | Result |
+|---|---|
+| Spec Presence | yes |
+| Agentic Access | derived (partial credit) |
+| Reversibility Documented | — |
+| MCP Server | — |
+| Auth Clarity | bearer (partial credit) |
+| Idempotency | — |
+| Error Semantics | — |
+| OpenAPI Examples | — |
+| Rate Limit Signal | derived (partial credit) |
+| Event Surface Described | — |
+| Agent Skills | — |
+| Well Known Catalog | — |
+| Consent Identity | — |
+| Agent Card | — |
+| Dry Run Mode | — |
+| Delegated Identity | — |
+| Protected Resource Metadata | — |
+| Dynamic Client Registration | — |
+| Agentic Commerce | — |
+
+**Regulatory alignment 10.7** — Payments
+
+The rubric is published at [github.com/api-evangelist/kin-score](https://github.com/api-evangelist/kin-score). The per-check breakdown behind these numbers — which checks were earned, partial or missed — along with score history and how this provider compares to its peers, is available at [apis.io/providers/fyle/](https://apis.io/providers/fyle/).
+
+## How this profile is made
+
+API Evangelist profiles a company's public API surface the way a developer would find it: the website, developer portal and documentation, the specifications it publishes, its public repositories, and its pricing, status and changelog pages. From that it derives the properties above — contracts split per API, workflows, schemas, collections, governance rules, plans and rate limits — and scores them against the published [Kin Score rubric](https://github.com/api-evangelist/kin-score).
+
+The artifacts are published on [APIs.io](https://apis.io), not in this repository. This repository is the public record for Fyle: the place to say something is wrong, missing or out of date, and to ask for a re-score or a removal.
+
+## Open an issue
+
+- **Something about this listing** — a wrong description, a missing API, a stale artifact or a question about the rating: [open an issue on this repository](https://github.com/api-evangelist/fyle/issues/new).
+- **A new API, or one that is not in the catalog yet** — [submit it on APIs.io](https://apis.io/add/).
+- **Anything else** — [the APIs.io inbox](https://github.com/api-search/inbox/issues/new) or [info@apievangelist.com](mailto:info@apievangelist.com).
